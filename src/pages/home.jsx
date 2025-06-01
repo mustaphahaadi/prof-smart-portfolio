@@ -1,13 +1,13 @@
 import { Helmet } from "react-helmet"
-import { Hero } from "../components/hero"
-import { SectionHeading } from "../components/section-heading"
-import { AchievementCard } from "../components/achievement-card"
-import { ResearchCard } from "../components/research-card"
-import { NewsCarousel } from "../components/news-carousel"
-import { NewsletterForm } from "../components/newsletter-form"
-import { TestimonialCarousel } from "../components/testimonial-carousel"
-import { Timeline } from "../components/timeline"
-import { BlogPreview } from "../components/blog-preview"
+import Hero from "../components/hero"
+import SectionHeading from "../components/section-heading"
+import AchievementCard from "../components/achievement-card"
+import ResearchCard from "../components/research-card"
+import NewsCarousel from "../components/news-carousel"
+import NewsletterForm from "../components/newsletter-form"
+import TestimonialCarousel from "../components/testimonial-carousel"
+import Timeline from "../components/timeline"
+import BlogPreview from "../components/blog-preview"
 
 export default function HomePage() {
   // Sample data

@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom"
 import { Mail, Phone, MapPin, Linkedin, Twitter, Book, Github, Youtube } from "lucide-react"
 
-export function Footer() {
+export default function Footer() {
   return (
     <footer className="bg-primary dark:bg-gray-900 text-white py-12">
       <div className="container mx-auto px-4">

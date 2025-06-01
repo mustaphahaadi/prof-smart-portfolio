@@ -71,7 +71,7 @@
     @apply border-gray-200;
   }
   body {
-    @apply bg-white text-foreground;
+    @apply bg-white text-gray-900;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
@@ -99,7 +99,7 @@ body {
 }
 
 .dark body {
-  @apply bg-neutral-900 text-white;
+  @apply bg-gray-900 text-white;
 }
 
 h1,
@@ -135,7 +135,7 @@ h6 {
 }
 
 .gradient-text {
-  @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+  @apply bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent;
 }
 
 .custom-scrollbar {
@@ -157,7 +157,7 @@ h6 {
 }
 
 .bg-gradient {
-  @apply bg-gradient-to-r from-primary to-secondary;
+  @apply bg-gradient-to-r from-blue-600 to-blue-400;
 }
 
 .text-balance {

@@ -1,7 +1,7 @@
 import { ArrowRight } from "lucide-react"
 import { Link } from "react-router-dom"
 
-export function Hero({ image, name, title, description, ctaLink, ctaText }) {
+export default function Hero({ image, name, title, description, ctaLink, ctaText }) {
   return (
     <section className="py-16 md:py-24 bg-gradient-to-b from-white to-background">
       <div className="container mx-auto px-4">

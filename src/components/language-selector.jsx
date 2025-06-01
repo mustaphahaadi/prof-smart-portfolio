@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Globe, ChevronDown } from "lucide-react"
 
-export function LanguageSelector() {
+export default function LanguageSelector() {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedLanguage, setSelectedLanguage] = useState("English")
 

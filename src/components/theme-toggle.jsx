@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { Sun, Moon } from "lucide-react"
 
-export function ThemeToggle() {
+export default function ThemeToggle() {
   const [theme, setTheme] = useState(() => {
     if (typeof window !== "undefined") {
       return localStorage.getItem("theme") || "light"

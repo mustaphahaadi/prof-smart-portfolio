@@ -1,9 +1,9 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
-export function NewsCarousel({ news }) {
+export default function NewsCarousel({ news }) {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const nextSlide = () => {
@@ -14,61 +14,48 @@ export function NewsCarousel({ news }) {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + news.length) % news.length)
   }
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide()
-    }, 5000)
-
-    return () => clearInterval(interval)
-  }, [])
-
   return (
-    <div className="relative bg-white rounded-lg shadow-md overflow-hidden">
-      <div className="absolute top-0 left-0 bg-secondary text-white px-4 py-2 z-10 rounded-br-lg">
-        <span className="font-medium">Latest News</span>
-      </div>
-
-      <div className="overflow-hidden h-64">
-        {news.map((item, index) => (
+    <div className="relative bg-white dark:bg-gray-800 rounded-lg p-6 shadow-md border border-gray-100 dark:border-gray-700">
+      <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Latest News</h3>
+      <div className="relative">
+        <div className="overflow-hidden">
           <div
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-500 p-6 pt-12 ${
-              index === currentIndex ? "opacity-100" : "opacity-0 pointer-events-none"
-            }`}
+            className="transition-transform duration-500 ease-in-out"
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
           >
-            <span className="text-sm text-gray-500 block mb-2">{item.date}</span>
-            <h3 className="text-xl font-heading font-bold text-primary mb-2">{item.title}</h3>
-            <p className="text-gray-700">{item.content}</p>
+            {news.map((item, index) => (
+              <div key={index} className="w-full flex-shrink-0">
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{item.date}</p>
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{item.title}</h4>
+                <p className="text-gray-600 dark:text-gray-300">{item.content}</p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
 
-      <div className="absolute bottom-4 right-4 flex space-x-2">
         <button
           onClick={prevSlide}
-          className="p-2 rounded-full bg-primary text-white hover:bg-opacity-90 transition-colors"
-          aria-label="Previous news"
+          className="absolute left-0 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white dark:bg-gray-700 shadow-md hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors border border-gray-200 dark:border-gray-600"
         >
-          <ChevronLeft size={16} />
+          <ChevronLeft className="h-5 w-5 text-gray-600 dark:text-gray-300" />
         </button>
+
         <button
           onClick={nextSlide}
-          className="p-2 rounded-full bg-primary text-white hover:bg-opacity-90 transition-colors"
-          aria-label="Next news"
+          className="absolute right-0 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white dark:bg-gray-700 shadow-md hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors border border-gray-200 dark:border-gray-600"
         >
-          <ChevronRight size={16} />
+          <ChevronRight className="h-5 w-5 text-gray-600 dark:text-gray-300" />
         </button>
       </div>
 
-      <div className="absolute bottom-4 left-4 flex space-x-1">
+      <div className="flex justify-center mt-4 space-x-2">
         {news.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
             className={`w-2 h-2 rounded-full transition-colors ${
-              index === currentIndex ? "bg-secondary" : "bg-gray-300"
+              index === currentIndex ? "bg-blue-600 dark:bg-blue-400" : "bg-gray-300 dark:bg-gray-600"
             }`}
-            aria-label={`Go to slide ${index + 1}`}
           />
         ))}
       </div>
