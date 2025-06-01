@@ -1,7 +1,6 @@
-"usimport { Helmet } from "react-helmet-async"; client"
+import { Helmet } from "react-helmet-async"
 
 import { useParams, Link } from "react-router-dom"
-import { Helmet } from "react-helmet"
 import { ArrowLeft, Calendar, User, Tag, Share2, Bookmark, MessageSquare } from "lucide-react"
 
 export default function BlogPostPage() {

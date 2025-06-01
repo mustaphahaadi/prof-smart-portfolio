@@ -1,7 +1,6 @@
-"usimport { Helmet } from "react-helmet-async"; client"
+import { Helmet } from "react-helmet-async"
 
 import { useState } from "react"
-import { Helmet } from "react-helmet"
 import { SectionHeading } from "../components/section-heading"
 import { Search, Tag, Calendar } from "lucide-react"
 import { Link } from "react-router-dom"
