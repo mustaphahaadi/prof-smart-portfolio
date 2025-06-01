@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async"
 
 import { useParams, Link } from "react-router-dom"
 import { ArrowLeft, Calendar, User, Tag, Share2, Bookmark, MessageSquare } from "lucide-react"
+import ResearchCard from "../components/research-card"
 
 export default function BlogPostPage() {
   const { slug } = useParams()

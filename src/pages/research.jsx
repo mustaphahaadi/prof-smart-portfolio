@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet"
-import { SectionHeading } from "../components/section-heading"
-import { ResearchCard } from "../components/research-card"
+import SectionHeading from "../components/section-heading"
+import ResearchCard from "../components/research-card"
 import { Lightbulb, Users, BookOpen, Globe } from "lucide-react"
 
 export default function ResearchPage() {

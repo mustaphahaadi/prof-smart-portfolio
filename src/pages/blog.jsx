@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async"
 
 import { useState } from "react"
-import { SectionHeading } from "../components/section-heading"
+import SectionHeading from "../components/section-heading"
 import { Search, Tag, Calendar } from "lucide-react"
 import { Link } from "react-router-dom"
 

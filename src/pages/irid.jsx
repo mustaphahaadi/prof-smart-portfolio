@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet"
-import { SectionHeading } from "../components/section-heading"
+import SectionHeading from "../components/section-heading"
 import { TeamStructure } from "../components/team-structure"
 import { Award, Target, TrendingUp, Users } from "lucide-react"
 

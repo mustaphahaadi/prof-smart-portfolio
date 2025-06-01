@@ -19,19 +19,21 @@ function App() {
         <title>Professional Portfolio</title>
         <meta name="description" content="Professional portfolio website" />
       </Helmet>
-      <div className="min-h-screen bg-white dark:bg-gray-900">
+      <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
         <Navbar />
-        <main className="pt-16">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:id" element={<BlogPost />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/research" element={<Research />} />
-            <Route path="/publications" element={<Publications />} />
-            <Route path="/irid" element={<IRID />} />
-            <Route path="*" element={<Error />} />
-          </Routes>
+        <main className="pt-16 pb-8">
+          <div className="container mx-auto px-4">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:id" element={<BlogPost />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/research" element={<Research />} />
+              <Route path="/publications" element={<Publications />} />
+              <Route path="/irid" element={<IRID />} />
+              <Route path="*" element={<Error />} />
+            </Routes>
+          </div>
         </main>
         <Footer />
       </div>

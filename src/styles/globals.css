@@ -73,6 +73,8 @@
   body {
     @apply bg-white text-gray-900;
     font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: "Open Sans", sans-serif;
+    transition: background-color 0.3s, color 0.3s;
   }
 }
 
@@ -96,6 +98,7 @@ html {
 
 body {
   font-family: "Open Sans", sans-serif;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .dark body {
@@ -162,4 +165,9 @@ h6 {
 
 .text-balance {
   text-wrap: balance;
+}
+
+:focus {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
 }

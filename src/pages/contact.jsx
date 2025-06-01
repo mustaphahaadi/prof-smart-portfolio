@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet"
-import { SectionHeading } from "../components/section-heading"
+import SectionHeading from "../components/section-heading"
 import { ContactForm } from "../components/contact-form"
 import { Mail, Phone, MapPin, Clock, Linkedin, Twitter, Book } from "lucide-react"
 

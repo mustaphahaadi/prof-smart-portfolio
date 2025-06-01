@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Helmet } from "react-helmet"
-import { SectionHeading } from "../components/section-heading"
+import SectionHeading from "../components/section-heading"
 import { PublicationFilter } from "../components/publication-filter"
 import { PublicationCard } from "../components/publication-card"
 import { CitationMetrics } from "../components/citation-metrics"
