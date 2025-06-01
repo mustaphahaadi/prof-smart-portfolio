@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { NavLink } from "react-router-dom"
 import { Menu, X } from "lucide-react"
 import ThemeToggle from "./theme-toggle"
@@ -7,6 +7,64 @@ import LanguageSelector from "./language-selector"
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const mobileMenuRef = useRef(null);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMenuOpen && !event.target.closest('.mobile-menu')) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMenuOpen]);
+
+  // Focus trap for mobile menu
+  useEffect(() => {
+    if (!isMenuOpen) return;
+
+    const menuElement = mobileMenuRef.current;
+    if (!menuElement) return;
+
+    const focusableElements = menuElement.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    const handleTabKey = (event) => {
+      const isFirstElementFocused = document.activeElement === firstElement;
+      const isLastElementFocused = document.activeElement === lastElement;
+
+      if (event.shiftKey) { // Shift + Tab
+        if (isFirstElementFocused) {
+          lastElement.focus();
+          event.preventDefault();
+        }
+      } else { // Tab
+        if (isLastElementFocused) {
+          firstElement.focus();
+          event.preventDefault();
+        }
+      }
+    };
+
+    menuElement.addEventListener('keydown', handleTabKey);
+
+    // Attempt to focus the first element when the menu opens
+    firstElement?.focus();
+
+    return () => {
+      menuElement.removeEventListener('keydown', handleTabKey);
+      // Optional: return focus to the menu toggle button when closing
+      // const menuToggleButton = document.querySelector('[aria-label="Toggle menu"]');
+      // menuToggleButton?.focus();
+    };
+  }, [isMenuOpen]); // Rerun effect when menu opens/closes
 
   useEffect(() => {
     const handleScroll = () => {
@@ -93,7 +151,7 @@ export default function Navbar() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="md:hidden mt-4 py-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+          <nav ref={mobileMenuRef} className="mobile-menu md:hidden mt-4 py-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
             <div className="flex flex-col space-y-4">
               {navLinks.map((link) => (
                 <NavLink

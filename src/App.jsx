@@ -11,6 +11,7 @@ import IRID from "./pages/irid";
 import Error from "./pages/error";
 import Navbar from "./components/navbar";
 import Footer from "./components/footer";
+import ScrollToTopButton from "./components/scroll-to-top-button";
 
 function App() {
   return (
@@ -20,8 +21,11 @@ function App() {
         <meta name="description" content="Professional portfolio website" />
       </Helmet>
       <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-0 focus:left-0 focus:z-50 focus:bg-white focus:text-blue-600 focus:p-3 focus:border-b focus:border-blue-600">
+          Skip to main content
+        </a>
         <Navbar />
-        <main className="pt-16 pb-8">
+        <main id="main-content" className="pt-16 pb-8">
           <div className="container mx-auto px-4">
             <Routes>
               <Route path="/" element={<Home />} />
@@ -36,6 +40,7 @@ function App() {
           </div>
         </main>
         <Footer />
+        <ScrollToTopButton />
       </div>
     </Router>
   )
