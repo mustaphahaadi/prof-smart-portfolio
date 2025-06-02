@@ -3,80 +3,131 @@ import { ArrowRight, Download, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Hero = () => {
+  const descriptions = [
+    "Leading research in sustainable development and innovation.",
+    "Exploring the intersection of technology and society.",
+    "Advancing knowledge through interdisciplinary research.",
+    "Mentoring the next generation of researchers."
+  ];
+
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-background to-background/80">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-background to-gray-50 dark:from-blue-950 dark:via-background dark:to-gray-900">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5" />
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-6">
-              Prof. S. A. Sarpong
-              <span className="block text-primary mt-2">Research & Innovation</span>
-            </h1>
-            
-            <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Leading research in sustainable development and innovation. 
-              Exploring the intersection of technology, society, and environmental impact.
-            </p>
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+            {/* Profile Photo */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="relative w-48 h-48 md:w-64 md:h-64"
+            >
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-400/20 to-primary/5 animate-pulse" />
+              <img
+                src="/profile-photo.jpg"
+                alt="Prof. S. A. Sarpong"
+                className="relative w-full h-full object-cover rounded-full border-4 border-background shadow-xl"
+              />
+            </motion.div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                to="/research"
-                className="inline-flex items-center px-6 py-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-              >
-                Explore Research
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+            {/* Content */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-center md:text-left flex-1"
+            >
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-6">
+                Prof. S. A. Sarpong
+                <span className="block text-blue-600 dark:text-blue-400 mt-2">Research & Innovation</span>
+              </h1>
               
-              <a
-                href="/cv.pdf"
-                className="inline-flex items-center px-6 py-3 rounded-lg border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-colors"
-                download
-              >
-                <Download className="mr-2 h-5 w-5" />
-                Download CV
-              </a>
-              
-              <Link
-                to="/contact"
-                className="inline-flex items-center px-6 py-3 rounded-lg border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-colors"
-              >
-                <Mail className="mr-2 h-5 w-5" />
-                Contact Me
-              </Link>
-            </div>
-          </motion.div>
+              {/* Sliding Description */}
+              <div className="h-8 mb-8 overflow-hidden">
+                <motion.div
+                  animate={{
+                    y: [0, -32, -64, -96, 0],
+                  }}
+                  transition={{
+                    duration: 10,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                  className="space-y-2"
+                >
+                  {descriptions.map((desc, index) => (
+                    <p
+                      key={index}
+                      className="text-lg sm:text-xl text-gray-600 dark:text-gray-300"
+                    >
+                      {desc}
+                    </p>
+                  ))}
+                </motion.div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
+                <Link
+                  to="/research"
+                  className="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-lg hover:shadow-xl"
+                >
+                  Explore Research
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+                
+                <a
+                  href="/cv.pdf"
+                  className="inline-flex items-center px-6 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-lg hover:shadow-xl"
+                  download
+                >
+                  <Download className="mr-2 h-5 w-5" />
+                  Download CV
+                </a>
+                
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center px-6 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-lg hover:shadow-xl"
+                >
+                  <Mail className="mr-2 h-5 w-5" />
+                  Contact Me
+                </Link>
+              </div>
+            </motion.div>
+          </div>
 
           {/* Stats Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
             className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8"
           >
             {[
-              { label: 'Publications', value: '50+' },
-              { label: 'Research Projects', value: '20+' },
-              { label: 'Years Experience', value: '15+' },
-              { label: 'Citations', value: '1000+' },
+              { label: 'Publications', value: '50+', color: 'from-blue-500 to-blue-600' },
+              { label: 'Research Projects', value: '20+', color: 'from-gray-500 to-gray-600' },
+              { label: 'Years Experience', value: '15+', color: 'from-blue-400 to-blue-500' },
+              { label: 'Citations', value: '1000+', color: 'from-gray-400 to-gray-500' },
             ].map((stat, index) => (
-              <div
+              <motion.div
                 key={stat.label}
-                className="p-4 rounded-lg bg-card hover:bg-accent transition-colors"
+                whileHover={{ scale: 1.05 }}
+                className="p-6 rounded-xl bg-gradient-to-br shadow-lg hover:shadow-xl transition-all duration-300"
+                style={{
+                  backgroundImage: `linear-gradient(to bottom right, var(--tw-gradient-stops))`,
+                  '--tw-gradient-from': stat.color.split(' ')[1],
+                  '--tw-gradient-to': stat.color.split(' ')[3],
+                }}
               >
-                <div className="text-2xl font-bold text-primary mb-1">
+                <div className="text-2xl font-bold text-white mb-1">
                   {stat.value}
                 </div>
-                <div className="text-sm text-muted-foreground">
+                <div className="text-sm text-white/80">
                   {stat.label}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </motion.div>
         </div>
@@ -89,7 +140,7 @@ const Hero = () => {
         transition={{ delay: 1 }}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
       >
-        <div className="w-6 h-10 border-2 border-foreground/20 rounded-full flex justify-center">
+        <div className="w-6 h-10 border-2 border-blue-200 dark:border-blue-800 rounded-full flex justify-center">
           <motion.div
             animate={{
               y: [0, 12, 0],
@@ -99,7 +150,7 @@ const Hero = () => {
               repeat: Infinity,
               repeatType: "loop",
             }}
-            className="w-1.5 h-1.5 bg-foreground/40 rounded-full mt-2"
+            className="w-1.5 h-1.5 bg-blue-400 dark:bg-blue-600 rounded-full mt-2"
           />
         </div>
       </motion.div>
