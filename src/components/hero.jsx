@@ -81,30 +81,23 @@ const Hero = () => {
             className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8"
           >
             {[
-              { label: 'Publications', value: '50+', color: 'from-blue-900 to-black' },
-              { label: 'Research Projects', value: '20+', color: 'from-gray-900 to-black' },
-              { label: 'Years Experience', value: '15+', color: 'from-blue-800 to-black' },
-              { label: 'Citations', value: '1000+', color: 'from-gray-800 to-black' },
+              { label: 'Publications', value: '50+'},
+              { label: 'Research Projects', value: '20+'},
+              { label: 'Years Experience', value: '15+'},
+              { label: 'Citations', value: '1000+'},
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
                 whileHover={{ scale: 1.05 }}
-                className="p-6 rounded-xl bg-gradient-to-br shadow-lg hover:shadow-xl transition-all duration-300"
-                style={{
-                  backgroundImage: `linear-gradient(to bottom right, var(--tw-gradient-stops))`,
-                  '--tw-gradient-from': stat.color.split(' ')[1],
-                  '--tw-gradient-to': stat.color.split(' ')[3],
-                }}
+                className="p-6 rounded-xl bg-blue-600 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col items-center justify-center text-center"
               >
                 <div
                   className="text-2xl font-bold text-white mb-1"
-                  style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 1)' }}
                 >
                   {stat.value}
                 </div>
                 <div
                   className="text-sm font-semibold text-white"
-                  style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 1)' }}
                 >
                   {stat.label}
                 </div>
