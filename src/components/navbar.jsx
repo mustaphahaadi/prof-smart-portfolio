@@ -1,190 +1,208 @@
-import { useState, useEffect, useRef } from "react"
-import { NavLink } from "react-router-dom"
-import { Menu, X } from "lucide-react"
-import ThemeToggle from "./theme-toggle"
-import LanguageSelector from "./language-selector"
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, ChevronDown } from 'lucide-react';
+import { ThemeToggle } from './theme-toggle';
+import { LanguageSelector } from './language-selector';
 
-export default function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const mobileMenuRef = useRef(null);
-
-  // Close mobile menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (isMenuOpen && !event.target.closest('.mobile-menu')) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isMenuOpen]);
-
-  // Focus trap for mobile menu
-  useEffect(() => {
-    if (!isMenuOpen) return;
-
-    const menuElement = mobileMenuRef.current;
-    if (!menuElement) return;
-
-    const focusableElements = menuElement.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
-    const firstElement = focusableElements[0];
-    const lastElement = focusableElements[focusableElements.length - 1];
-
-    const handleTabKey = (event) => {
-      const isFirstElementFocused = document.activeElement === firstElement;
-      const isLastElementFocused = document.activeElement === lastElement;
-
-      if (event.shiftKey) { // Shift + Tab
-        if (isFirstElementFocused) {
-          lastElement.focus();
-          event.preventDefault();
-        }
-      } else { // Tab
-        if (isLastElementFocused) {
-          firstElement.focus();
-          event.preventDefault();
-        }
-      }
-    };
-
-    menuElement.addEventListener('keydown', handleTabKey);
-
-    // Attempt to focus the first element when the menu opens
-    firstElement?.focus();
-
-    return () => {
-      menuElement.removeEventListener('keydown', handleTabKey);
-      // Optional: return focus to the menu toggle button when closing
-      // const menuToggleButton = document.querySelector('[aria-label="Toggle menu"]');
-      // menuToggleButton?.focus();
-    };
-  }, [isMenuOpen]); // Rerun effect when menu opens/closes
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Research", path: "/research" },
-    { name: "Publications", path: "/publications" },
-    { name: "IRID Leadership", path: "/irid" },
-    { name: "Blog", path: "/blog" },
-    { name: "Contact", path: "/contact" },
-  ]
+    { name: 'Home', path: '/' },
+    {
+      name: 'Research',
+      path: '/research',
+      dropdown: [
+        { name: 'Current Projects', path: '/research#current' },
+        { name: 'Publications', path: '/publications' },
+        { name: 'Research Map', path: '/research#map' },
+      ],
+    },
+    {
+      name: 'Blog',
+      path: '/blog',
+      dropdown: [
+        { name: 'Latest Posts', path: '/blog' },
+        { name: 'Categories', path: '/blog#categories' },
+      ],
+    },
+    { name: 'Contact', path: '/contact' },
+  ];
 
   return (
-    <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? "bg-white dark:bg-gray-900 shadow-md" 
-          : "bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm"
+    <nav
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        isScrolled
+          ? 'bg-background/80 backdrop-blur-md shadow-lg'
+          : 'bg-transparent'
       }`}
     >
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          <NavLink to="/" className="flex items-center">
-            <span className="text-xl font-bold text-foreground dark:text-foreground hover:text-blue-700 dark:hover:text-blue-300 transition-colors">
-              Prof. S. A. Sarpong
-            </span>
-          </NavLink>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <div className="flex items-center">
+            <Link to="/" className="flex-shrink-0">
+              <img
+                className="h-8 w-auto"
+                src="/logo.svg"
+                alt="Logo"
+              />
+            </Link>
+          </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.path}
-                to={link.path}
-                className={({ isActive }) =>
-                  `font-medium transition-colors ${
-                    isActive 
-                      ? "text-blue-700 dark:text-blue-300 font-semibold" 
-                      : "text-foreground dark:text-foreground hover:text-blue-700 dark:hover:text-blue-300"
-                  }`
-                }
-              >
-                {link.name}
-              </NavLink>
-            ))}
+          <div className="hidden md:block">
+            <div className="ml-10 flex items-center space-x-4">
+              {navLinks.map((link) => (
+                <div key={link.name} className="relative group">
+                  {link.dropdown ? (
+                    <button
+                      className="flex items-center px-3 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
+                      onMouseEnter={() => setActiveDropdown(link.name)}
+                      onMouseLeave={() => setActiveDropdown(null)}
+                    >
+                      {link.name}
+                      <ChevronDown className="ml-1 h-4 w-4" />
+                    </button>
+                  ) : (
+                    <Link
+                      to={link.path}
+                      className={`px-3 py-2 text-sm font-medium transition-colors ${
+                        location.pathname === link.path
+                          ? 'text-primary'
+                          : 'text-foreground hover:text-primary'
+                      }`}
+                    >
+                      {link.name}
+                    </Link>
+                  )}
 
-            <div className="flex items-center space-x-2 ml-4">
-              <ThemeToggle />
-              <LanguageSelector />
-
-              <a
-                href="/cv.pdf"
-                className="ml-2 px-4 py-2 bg-blue-700 dark:bg-blue-600 text-white rounded-md hover:bg-blue-800 dark:hover:bg-blue-500 transition-colors font-medium"
-                download
-              >
-                Download CV
-              </a>
+                  {link.dropdown && activeDropdown === link.name && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-background ring-1 ring-black ring-opacity-5"
+                    >
+                      <div className="py-1">
+                        {link.dropdown.map((item) => (
+                          <Link
+                            key={item.name}
+                            to={item.path}
+                            className="block px-4 py-2 text-sm text-foreground hover:bg-accent hover:text-primary"
+                          >
+                            {item.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </div>
+              ))}
             </div>
-          </nav>
+          </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex items-center space-x-2 md:hidden">
+          <div className="hidden md:flex items-center space-x-4">
+            <LanguageSelector />
             <ThemeToggle />
-            <button 
-              className="text-foreground dark:text-foreground hover:text-blue-700 dark:hover:text-blue-300 transition-colors" 
-              onClick={toggleMenu} 
-              aria-label="Toggle menu"
+          </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center space-x-4">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-primary focus:outline-none"
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
           </div>
         </div>
+      </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <nav ref={mobileMenuRef} className="mobile-menu md:hidden mt-4 py-4 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
-            <div className="flex flex-col space-y-4">
+      {/* Mobile Navigation */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-background border-t"
+          >
+            <div className="px-2 pt-2 pb-3 space-y-1">
               {navLinks.map((link) => (
-                <NavLink
-                  key={link.path}
-                  to={link.path}
-                  className={({ isActive }) =>
-                    `px-4 py-2 font-medium transition-colors ${
-                      isActive 
-                        ? "text-blue-700 dark:text-blue-300 font-semibold" 
-                        : "text-foreground dark:text-foreground hover:text-blue-700 dark:hover:text-blue-300"
-                    }`
-                  }
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {link.name}
-                </NavLink>
+                <div key={link.name}>
+                  {link.dropdown ? (
+                    <div className="space-y-1">
+                      <button
+                        onClick={() =>
+                          setActiveDropdown(
+                            activeDropdown === link.name ? null : link.name
+                          )
+                        }
+                        className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-foreground hover:text-primary"
+                      >
+                        {link.name}
+                        <ChevronDown
+                          className={`h-4 w-4 transition-transform ${
+                            activeDropdown === link.name ? 'rotate-180' : ''
+                          }`}
+                        />
+                      </button>
+                      {activeDropdown === link.name && (
+                        <div className="pl-4 space-y-1">
+                          {link.dropdown.map((item) => (
+                            <Link
+                              key={item.name}
+                              to={item.path}
+                              className="block px-3 py-2 text-base font-medium text-foreground hover:text-primary"
+                              onClick={() => setIsOpen(false)}
+                            >
+                              {item.name}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <Link
+                      to={link.path}
+                      className={`block px-3 py-2 text-base font-medium ${
+                        location.pathname === link.path
+                          ? 'text-primary'
+                          : 'text-foreground hover:text-primary'
+                      }`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {link.name}
+                    </Link>
+                  )}
+                </div>
               ))}
-
-              <div className="flex items-center px-4 py-2">
+              <div className="px-3 py-2">
                 <LanguageSelector />
               </div>
-
-              <a
-                href="/cv.pdf"
-                className="mx-4 px-4 py-2 bg-blue-700 dark:bg-blue-600 text-white rounded-md text-center hover:bg-blue-800 dark:hover:bg-blue-500 transition-colors font-medium"
-                download
-              >
-                Download CV
-              </a>
             </div>
-          </nav>
+          </motion.div>
         )}
-      </div>
-    </header>
-  )
-}
+      </AnimatePresence>
+    </nav>
+  );
+};
+
+export default Navbar;

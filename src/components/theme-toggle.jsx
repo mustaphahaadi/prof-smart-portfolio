@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { Sun, Moon } from "lucide-react"
 
-export default function ThemeToggle() {
+export const ThemeToggle = () => {
   const [theme, setTheme] = useState(() => {
     if (typeof window !== "undefined") {
       return localStorage.getItem("theme") || "light"
@@ -13,13 +13,8 @@ export default function ThemeToggle() {
 
   useEffect(() => {
     const root = window.document.documentElement
-
-    if (theme === "dark") {
-      root.classList.add("dark")
-    } else {
-      root.classList.remove("dark")
-    }
-
+    root.classList.remove("light", "dark")
+    root.classList.add(theme)
     localStorage.setItem("theme", theme)
   }, [theme])
 
@@ -30,10 +25,19 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-full bg-primary bg-opacity-10 text-primary hover:bg-opacity-20 transition-colors dark:bg-white dark:bg-opacity-10 dark:text-white"
-      aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+      className="relative inline-flex h-8 w-8 items-center justify-center rounded-lg bg-background hover:bg-accent transition-colors"
+      aria-label="Toggle theme"
     >
-      {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+      <Sun
+        className={`h-5 w-5 transition-transform duration-200 ${
+          theme === "light" ? "scale-100 rotate-0" : "scale-0 -rotate-90"
+        }`}
+      />
+      <Moon
+        className={`absolute h-5 w-5 transition-transform duration-200 ${
+          theme === "dark" ? "scale-100 rotate-0" : "scale-0 rotate-90"
+        }`}
+      />
     </button>
   )
 }

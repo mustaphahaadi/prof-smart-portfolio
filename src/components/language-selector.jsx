@@ -1,54 +1,67 @@
 "use client"
 
-import { useState } from "react"
-import { Globe, ChevronDown } from "lucide-react"
+import { useState, useRef, useEffect } from 'react';
+import { Globe, ChevronDown } from 'lucide-react';
 
-export default function LanguageSelector() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [selectedLanguage, setSelectedLanguage] = useState("English")
+export const LanguageSelector = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('en');
+  const dropdownRef = useRef(null);
 
   const languages = [
-    { code: "en", name: "English" },
-    { code: "fr", name: "Français" },
-    { code: "es", name: "Español" },
-    { code: "zh", name: "中文" },
-  ]
+    { code: 'en', name: 'English' },
+    { code: 'es', name: 'Español' },
+    { code: 'fr', name: 'Français' },
+    { code: 'de', name: 'Deutsch' },
+  ];
 
-  const toggleDropdown = () => setIsOpen(!isOpen)
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
 
-  const selectLanguage = (language) => {
-    setSelectedLanguage(language.name)
-    setIsOpen(false)
-    // In a real app, you would implement language switching logic here
-  }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleLanguageChange = (languageCode) => {
+    setSelectedLanguage(languageCode);
+    setIsOpen(false);
+    // Here you would typically handle the language change
+    // For example, using i18n or updating the app's language state
+  };
 
   return (
-    <div className="relative">
+    <div className="relative" ref={dropdownRef}>
       <button
-        onClick={toggleDropdown}
-        className="flex items-center space-x-1 p-2 rounded-md hover:bg-primary hover:bg-opacity-10 transition-colors dark:hover:bg-white dark:hover:bg-opacity-10"
-        aria-expanded={isOpen}
-        aria-haspopup="true"
+        onClick={() => setIsOpen(!isOpen)}
+        className="inline-flex items-center justify-center h-8 px-3 rounded-lg bg-background hover:bg-accent transition-colors"
+        aria-label="Select language"
       >
-        <Globe size={18} className="text-primary dark:text-white" />
-        <span className="text-sm text-primary dark:text-white">{selectedLanguage}</span>
+        <Globe className="h-4 w-4 mr-2" />
+        <span className="text-sm font-medium">
+          {languages.find(lang => lang.code === selectedLanguage)?.name}
+        </span>
         <ChevronDown
-          size={14}
-          className={`text-primary dark:text-white transition-transform ${isOpen ? "rotate-180" : ""}`}
+          className={`ml-1 h-4 w-4 transition-transform duration-200 ${
+            isOpen ? 'rotate-180' : ''
+          }`}
         />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 rounded-md shadow-lg z-50 py-1 border border-gray-200 dark:border-gray-700">
+        <div className="absolute right-0 mt-2 w-48 rounded-lg bg-background border border-border shadow-lg py-1 z-50">
           {languages.map((language) => (
             <button
               key={language.code}
-              onClick={() => selectLanguage(language)}
-              className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 ${
-                selectedLanguage === language.name
-                  ? "bg-primary bg-opacity-10 text-primary dark:bg-primary dark:bg-opacity-20 dark:text-white"
-                  : "text-gray-700 dark:text-gray-200"
-              }`}
+              onClick={() => handleLanguageChange(language.code)}
+              className={`w-full text-left px-4 py-2 text-sm ${
+                selectedLanguage === language.code
+                  ? 'bg-accent text-accent-foreground'
+                  : 'text-foreground hover:bg-accent hover:text-accent-foreground'
+              } transition-colors`}
             >
               {language.name}
             </button>
@@ -56,5 +69,5 @@ export default function LanguageSelector() {
         </div>
       )}
     </div>
-  )
-}
+  );
+};

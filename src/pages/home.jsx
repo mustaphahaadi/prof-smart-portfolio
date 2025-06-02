@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet"
+import { motion } from "framer-motion"
 import Hero from "../components/hero"
 import SectionHeading from "../components/section-heading"
 import AchievementCard from "../components/achievement-card"
@@ -8,6 +9,8 @@ import NewsletterForm from "../components/newsletter-form"
 import TestimonialCarousel from "../components/testimonial-carousel"
 import Timeline from "../components/timeline"
 import BlogPreview from "../components/blog-preview"
+import { ArrowRight, Calendar, Users, Award } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function HomePage() {
   // Sample data
@@ -181,8 +184,29 @@ export default function HomePage() {
     },
   ]
 
+  const upcomingEvents = [
+    {
+      title: 'International Conference on Sustainable Development',
+      date: '2024-06-15',
+      location: 'Virtual',
+      type: 'Conference',
+    },
+    {
+      title: 'Research Workshop on Innovation Management',
+      date: '2024-07-20',
+      location: 'University Campus',
+      type: 'Workshop',
+    },
+    {
+      title: 'Guest Lecture: Technology Adoption',
+      date: '2024-08-05',
+      location: 'Online',
+      type: 'Lecture',
+    },
+  ];
+
   return (
-    <div className="page-transition">
+    <div className="min-h-screen">
       <Helmet>
         <title>Prof. Smart Asomaning Sarpong | Academic Portfolio</title>
         <meta
@@ -192,9 +216,9 @@ export default function HomePage() {
       </Helmet>
 
       <Hero
-        image="/placeholder.svg?height=400&width=400"
+        image="/profile-photo.jpg"
         name="Prof. Smart Asomaning Sarpong"
-        title="Academic Researcher & IRID Leader"
+        title="Senior Researcher Fellow & IRID Director"
         description="Welcome to my academic portfolio. I am a professor specializing in innovative research methodologies and interdisciplinary studies, with a focus on developing new approaches to academic research."
         ctaLink="/research"
         ctaText="Explore My Research"
@@ -271,6 +295,104 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <NewsCarousel news={news} />
             <NewsletterForm />
+          </div>
+        </div>
+      </section>
+
+      {/* Upcoming Events Section */}
+      <section className="py-20 bg-background/50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
+              Upcoming Events
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Join us at our upcoming events and stay connected with the latest
+              developments in research and innovation.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {upcomingEvents.map((event, index) => (
+              <motion.div
+                key={event.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="bg-card rounded-xl p-6 hover:shadow-lg transition-all duration-300"
+              >
+                <div className="flex items-start justify-between mb-4">
+                  <Calendar className="h-6 w-6 text-primary" />
+                  <span className="text-sm text-muted-foreground">
+                    {new Date(event.date).toLocaleDateString('en-US', {
+                      month: 'long',
+                      day: 'numeric',
+                      year: 'numeric',
+                    })}
+                  </span>
+                </div>
+
+                <h3 className="text-xl font-semibold text-foreground mb-3">
+                  {event.title}
+                </h3>
+
+                <div className="space-y-2 mb-6">
+                  <p className="text-sm text-muted-foreground">
+                    <span className="font-medium">Location:</span> {event.location}
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    <span className="font-medium">Type:</span> {event.type}
+                  </p>
+                </div>
+
+                <button className="w-full inline-flex items-center justify-center px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+                  Register Now
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </button>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link
+              to="/events"
+              className="inline-flex items-center px-6 py-3 rounded-lg border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-colors"
+            >
+              View All Events
+              <Calendar className="ml-2 h-5 w-5" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action Section */}
+      <section className="py-20 bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6">
+              Let's Collaborate
+            </h2>
+            <p className="text-lg mb-8 opacity-90">
+              Interested in research collaboration or have questions about our work?
+              Get in touch with us to explore potential partnerships and opportunities.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                to="/contact"
+                className="inline-flex items-center px-6 py-3 rounded-lg bg-background text-foreground hover:bg-background/90 transition-colors"
+              >
+                Contact Us
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+              <Link
+                to="/research"
+                className="inline-flex items-center px-6 py-3 rounded-lg border border-background/20 hover:bg-background/10 transition-colors"
+              >
+                Explore Research Areas
+                <Users className="ml-2 h-5 w-5" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

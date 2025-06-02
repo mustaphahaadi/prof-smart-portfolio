@@ -1,166 +1,151 @@
-import { NavLink } from "react-router-dom"
-import { Mail, Phone, MapPin, Linkedin, Twitter, Book, Github, Youtube } from "lucide-react"
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Mail, Twitter, Linkedin, Github, Send } from 'lucide-react';
 
-export default function Footer() {
+const Footer = () => {
+  const [email, setEmail] = useState('');
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    // Here you would typically handle the newsletter subscription
+    setIsSubscribed(true);
+    setEmail('');
+  };
+
+  const footerLinks = {
+    Research: [
+      { name: 'Current Projects', href: '/research#current' },
+      { name: 'Publications', href: '/publications' },
+      { name: 'Research Map', href: '/research#map' },
+    ],
+    Resources: [
+      { name: 'Blog', href: '/blog' },
+      { name: 'Events', href: '/events' },
+      { name: 'Newsletter', href: '/newsletter' },
+    ],
+    Connect: [
+      { name: 'Contact', href: '/contact' },
+      { name: 'About', href: '/about' },
+      { name: 'Team', href: '/team' },
+    ],
+  };
+
+  const socialLinks = [
+    { name: 'Twitter', icon: <Twitter className="h-5 w-5" />, href: 'https://twitter.com' },
+    { name: 'LinkedIn', icon: <Linkedin className="h-5 w-5" />, href: 'https://linkedin.com' },
+    { name: 'GitHub', icon: <Github className="h-5 w-5" />, href: 'https://github.com' },
+    { name: 'Email', icon: <Mail className="h-5 w-5" />, href: 'mailto:contact@example.com' },
+  ];
+
   return (
-    <footer className="bg-gray-900 text-gray-300 dark:bg-gray-900 dark:text-gray-300 py-12">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h3 className="text-xl font-bold mb-4 text-white dark:text-white">Prof. Smart Asomaning Sarpong</h3>
-            <p className="mb-4 text-gray-300 dark:text-gray-400">
-              Academic researcher and IRID leader specializing in innovative research methodologies and
-              interdisciplinary studies.
+    <footer className="bg-background border-t">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Brand Section */}
+          <div className="space-y-4">
+            <Link to="/" className="inline-block">
+              <img
+                src="/logo.svg"
+                alt="Logo"
+                className="h-8 w-auto"
+              />
+            </Link>
+            <p className="text-sm text-muted-foreground">
+              Leading research in sustainable development and innovation.
+              Exploring the intersection of technology, society, and environmental impact.
             </p>
             <div className="flex space-x-4">
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="text-gray-400 hover:text-blue-400 transition-colors dark:text-gray-400 dark:hover:text-blue-300"
-              >
-                <Linkedin size={20} />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Twitter"
-                className="text-gray-400 hover:text-blue-400 transition-colors dark:text-gray-400 dark:hover:text-blue-300"
-              >
-                <Twitter size={20} />
-              </a>
-              <a
-                href="https://scholar.google.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Google Scholar"
-                className="text-gray-400 hover:text-blue-400 transition-colors dark:text-gray-400 dark:hover:text-blue-300"
-              >
-                <Book size={20} />
-              </a>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub"
-                className="text-gray-400 hover:text-blue-400 transition-colors dark:text-gray-400 dark:hover:text-blue-300"
-              >
-                <Github size={20} />
-              </a>
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="YouTube"
-                className="text-gray-400 hover:text-blue-400 transition-colors dark:text-gray-400 dark:hover:text-blue-300"
-              >
-                <Youtube size={20} />
-              </a>
+              {socialLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <span className="sr-only">{link.name}</span>
+                  {link.icon}
+                </a>
+              ))}
             </div>
           </div>
 
-          <div>
-            <h3 className="text-xl font-bold mb-4 text-white dark:text-white">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <NavLink to="/" className="text-gray-400 hover:text-blue-400 transition-colors dark:text-gray-400 dark:hover:text-blue-300">
-                  Home
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/research" className="text-gray-400 hover:text-blue-400 transition-colors dark:text-gray-400 dark:hover:text-blue-300">
-                  Research
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/publications" className="text-gray-400 hover:text-blue-400 transition-colors dark:text-gray-400 dark:hover:text-blue-300">
-                  Publications
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/irid" className="text-gray-400 hover:text-blue-400 transition-colors dark:text-gray-400 dark:hover:text-blue-300">
-                  IRID Leadership
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/blog" className="text-gray-400 hover:text-blue-400 transition-colors dark:text-gray-400 dark:hover:text-blue-300">
-                  Blog & Insights
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/contact" className="text-gray-400 hover:text-blue-400 transition-colors dark:text-gray-400 dark:hover:text-blue-300">
-                  Contact
-                </NavLink>
-              </li>
-            </ul>
-          </div>
+          {/* Links Sections */}
+          {Object.entries(footerLinks).map(([title, links]) => (
+            <div key={title}>
+              <h3 className="font-semibold text-foreground mb-4">{title}</h3>
+              <ul className="space-y-2">
+                {links.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      to={link.href}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
 
+          {/* Newsletter Section */}
           <div>
-            <h3 className="text-xl font-bold mb-4 text-white dark:text-white">Contact Information</h3>
-            <ul className="space-y-2">
-              <li className="flex items-center">
-                <Mail size={16} className="mr-2 text-gray-400 dark:text-gray-400" />
-                <a
-                  href="mailto:professor@university.edu"
-                  className="text-gray-400 hover:text-blue-400 transition-colors dark:text-gray-400 dark:hover:text-blue-300"
-                >
-                  professor@university.edu
-                </a>
-              </li>
-              <li className="flex items-center">
-                <Phone size={16} className="mr-2 text-gray-400 dark:text-gray-400" />
-                <a href="tel:+1234567890" className="text-gray-400 hover:text-blue-400 transition-colors dark:text-gray-400 dark:hover:text-blue-300">
-                  +1 (234) 567-890
-                </a>
-              </li>
-              <li className="flex items-start">
-                <MapPin size={16} className="mr-2 mt-1 text-gray-400 dark:text-gray-400" />
-                <span className="text-gray-400 dark:text-gray-400">Department of Research, University Campus, Academic Building, Room 123</span>
-              </li>
-            </ul>
-
-            <div className="mt-6">
-              <h4 className="font-medium mb-2 text-white dark:text-white">Subscribe to Newsletter</h4>
-              <form className="flex">
+            <h3 className="font-semibold text-foreground mb-4">Stay Updated</h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              Subscribe to our newsletter for the latest updates on research and events.
+            </p>
+            <form onSubmit={handleSubscribe} className="space-y-2">
+              <div className="flex">
                 <input
                   type="email"
-                  placeholder="Your email"
-                  className="flex-1 px-3 py-2 text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  className="flex-1 min-w-0 px-3 py-2 text-sm bg-background border border-input rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   required
                 />
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-600 dark:bg-blue-600 text-white rounded-r-md hover:bg-blue-700 dark:hover:bg-blue-500 transition-colors"
+                  className="px-4 py-2 bg-primary text-primary-foreground rounded-r-lg hover:bg-primary/90 transition-colors"
                 >
-                  Subscribe
+                  <Send className="h-4 w-4" />
                 </button>
-              </form>
-            </div>
+              </div>
+              {isSubscribed && (
+                <p className="text-sm text-green-600">
+                  Thank you for subscribing!
+                </p>
+              )}
+            </form>
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-gray-700 dark:border-gray-600">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 dark:text-gray-400">&copy; {new Date().getFullYear()} Prof. Smart Asomaning Sarpong. All rights reserved.</p>
-            <div className="mt-4 md:mt-0">
-              <a
-                href="/privacy-policy"
-                className="text-sm text-gray-400 hover:text-blue-400 transition-colors mr-4 dark:text-gray-400 dark:hover:text-blue-300"
+        <div className="mt-12 pt-8 border-t border-border">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <p className="text-sm text-muted-foreground">
+              © {new Date().getFullYear()} Prof. S. A. Sarpong. All rights reserved.
+            </p>
+            <div className="flex space-x-6">
+              <Link
+                to="/privacy"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors"
               >
                 Privacy Policy
-              </a>
-              <a
-                href="/terms-of-use"
-                className="text-sm text-gray-400 hover:text-blue-400 transition-colors dark:text-gray-400 dark:hover:text-blue-300"
+              </Link>
+              <Link
+                to="/terms"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors"
               >
-                Terms of Use
-              </a>
+                Terms of Service
+              </Link>
             </div>
           </div>
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};
+
+export default Footer;
