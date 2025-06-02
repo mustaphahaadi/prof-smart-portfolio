@@ -3,13 +3,6 @@ import { ArrowRight, Download, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Hero = () => {
-  const descriptions = [
-    "Leading research in sustainable development and innovation.",
-    "Exploring the intersection of technology and society.",
-    "Advancing knowledge through interdisciplinary research.",
-    "Mentoring the next generation of researchers."
-  ];
-
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-blue-50 via-background to-gray-50 dark:from-blue-950 dark:via-background dark:to-gray-900">
       {/* Background Pattern */}
@@ -18,21 +11,6 @@ const Hero = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-            {/* Profile Photo */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              className="relative w-48 h-48 md:w-64 md:h-64"
-            >
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-400/20 to-primary/5 animate-pulse" />
-              <img
-                src="/profile-photo.jpg"
-                alt="Prof. S. A. Sarpong"
-                className="relative w-full h-full object-cover rounded-full border-4 border-background shadow-xl"
-              />
-            </motion.div>
-
             {/* Content */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -41,33 +19,15 @@ const Hero = () => {
               className="text-center md:text-left flex-1"
             >
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-6">
-                Prof. S. A. Sarpong
-                <span className="block text-blue-600 dark:text-blue-400 mt-2">Research & Innovation</span>
+                Prof. Smart Asomaning Sarpong
+                <span className="block text-blue-600 dark:text-blue-400 mt-2">Senior Researcher Fellow & IRID Director</span>
               </h1>
               
-              {/* Sliding Description */}
-              <div className="h-8 mb-8 overflow-hidden">
-                <motion.div
-                  animate={{
-                    y: [0, -32, -64, -96, 0],
-                  }}
-                  transition={{
-                    duration: 10,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  className="space-y-2"
-                >
-                  {descriptions.map((desc, index) => (
-                    <p
-                      key={index}
-                      className="text-lg sm:text-xl text-gray-600 dark:text-gray-300"
-                    >
-                      {desc}
-                    </p>
-                  ))}
-                </motion.div>
-              </div>
+              {/* Static Description */}
+              <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-8">
+                Leading research in sustainable development and innovation. 
+                Exploring the intersection of technology, society, and environmental impact.
+              </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
                 <Link
@@ -96,6 +56,21 @@ const Hero = () => {
                 </Link>
               </div>
             </motion.div>
+
+            {/* Profile Photo */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="relative w-48 h-48 md:w-64 md:h-64 order-first md:order-last"
+            >
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-400/20 to-primary/5 animate-pulse" />
+              <img
+                src="/profile-photo.jpg"
+                alt="Prof. Smart Asomaning Sarpong"
+                className="relative w-full h-full object-cover rounded-full border-4 border-background shadow-xl"
+              />
+            </motion.div>
           </div>
 
           {/* Stats Section */}
@@ -106,10 +81,10 @@ const Hero = () => {
             className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8"
           >
             {[
-              { label: 'Publications', value: '50+', color: 'from-blue-500 to-blue-600' },
-              { label: 'Research Projects', value: '20+', color: 'from-gray-500 to-gray-600' },
-              { label: 'Years Experience', value: '15+', color: 'from-blue-400 to-blue-500' },
-              { label: 'Citations', value: '1000+', color: 'from-gray-400 to-gray-500' },
+              { label: 'Publications', value: '50+', color: 'from-blue-600 to-blue-700' },
+              { label: 'Research Projects', value: '20+', color: 'from-gray-600 to-gray-700' },
+              { label: 'Years Experience', value: '15+', color: 'from-blue-500 to-blue-600' },
+              { label: 'Citations', value: '1000+', color: 'from-gray-500 to-gray-600' },
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -121,10 +96,10 @@ const Hero = () => {
                   '--tw-gradient-to': stat.color.split(' ')[3],
                 }}
               >
-                <div className="text-2xl font-bold text-white mb-1">
+                <div className="text-2xl font-bold text-white mb-1 drop-shadow-md">
                   {stat.value}
                 </div>
-                <div className="text-sm text-white/80">
+                <div className="text-sm font-medium text-white drop-shadow-md">
                   {stat.label}
                 </div>
               </motion.div>
