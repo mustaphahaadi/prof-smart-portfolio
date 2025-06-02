@@ -81,10 +81,10 @@ const Hero = () => {
             className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8"
           >
             {[
-              { label: 'Publications', value: '50+', color: 'from-blue-600 to-blue-700' },
-              { label: 'Research Projects', value: '20+', color: 'from-gray-600 to-gray-700' },
-              { label: 'Years Experience', value: '15+', color: 'from-blue-500 to-blue-600' },
-              { label: 'Citations', value: '1000+', color: 'from-gray-500 to-gray-600' },
+              { label: 'Publications', value: '50+', color: 'from-blue-900 to-black' },
+              { label: 'Research Projects', value: '20+', color: 'from-gray-900 to-black' },
+              { label: 'Years Experience', value: '15+', color: 'from-blue-800 to-black' },
+              { label: 'Citations', value: '1000+', color: 'from-gray-800 to-black' },
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -96,10 +96,16 @@ const Hero = () => {
                   '--tw-gradient-to': stat.color.split(' ')[3],
                 }}
               >
-                <div className="text-2xl font-bold text-white mb-1 drop-shadow-md">
+                <div
+                  className="text-2xl font-bold text-white mb-1"
+                  style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 1)' }}
+                >
                   {stat.value}
                 </div>
-                <div className="text-sm font-medium text-white drop-shadow-md">
+                <div
+                  className="text-sm font-semibold text-white"
+                  style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 1)' }}
+                >
                   {stat.label}
                 </div>
               </motion.div>
