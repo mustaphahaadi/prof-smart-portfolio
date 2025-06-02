@@ -134,10 +134,10 @@ const RecentPublications = () => {
                     href={`https://doi.org/${pub.doi}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center text-primary hover:text-primary/80 transition-colors"
+                    className="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-lg hover:shadow-xl"
                   >
                     View Paper
-                    <ExternalLink className="ml-1 h-4 w-4" />
+                    <ExternalLink className="ml-2 h-5 w-5" />
                   </a>
                 </div>
               </motion.div>

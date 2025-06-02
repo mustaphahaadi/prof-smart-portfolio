@@ -193,7 +193,7 @@ export default function ResearchPage() {
               </p>
               <a
                 href="/contact"
-                className="inline-flex items-center px-6 py-3 bg-primary text-white rounded-md hover:bg-opacity-90 transition-colors"
+                className="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-lg hover:shadow-xl"
               >
                 Contact for Collaboration
               </a>

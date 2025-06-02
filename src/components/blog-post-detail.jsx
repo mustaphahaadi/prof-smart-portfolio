@@ -44,7 +44,7 @@ export function BlogPostDetail() {
           <p className="text-red-500 mb-4">{error}</p>
           <Link
             to="/blog"
-            className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-md hover:bg-opacity-90 transition-colors"
+            className="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-lg hover:shadow-xl"
           >
             <ArrowLeft size={16} className="mr-2" />
             Back to Blog
@@ -149,7 +149,7 @@ export function BlogPostDetail() {
 
               <Link
                 to="/contact"
-                className="flex items-center px-4 py-2 bg-primary text-white dark:bg-blue-600 rounded-md hover:bg-opacity-90 transition-colors"
+                className="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-lg hover:shadow-xl"
               >
                 <MessageSquare size={16} className="mr-2" />
                 Contact Author

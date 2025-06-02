@@ -166,7 +166,7 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="inline-flex items-center px-6 py-3 bg-primary text-white rounded-md hover:bg-opacity-90 transition-colors disabled:opacity-70 dark:bg-blue-600 dark:hover:bg-blue-700"
+          className="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-lg hover:shadow-xl disabled:opacity-70"
         >
           {isSubmitting ? (
             <>

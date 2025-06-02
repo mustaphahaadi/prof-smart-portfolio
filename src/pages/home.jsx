@@ -206,7 +206,7 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background dark:bg-gray-950">
       <Helmet>
         <title>Prof. Smart Asomaning Sarpong | Academic Portfolio</title>
         <meta
@@ -224,8 +224,8 @@ export default function HomePage() {
         ctaText="Explore My Research"
       />
 
-      <section className="py-16 bg-background dark:bg-gray-900">
-        <div className="container mx-auto px-4">
+      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             title="Latest Achievements"
             subtitle="Recent recognition and milestones in my academic journey"
@@ -245,8 +245,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 bg-white dark:bg-gray-800">
-        <div className="container mx-auto px-4">
+      <section className="py-20 bg-white dark:bg-gray-800">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading title="Featured Research" subtitle="Highlights from my current research focus areas" />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -262,36 +262,36 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 bg-background dark:bg-gray-900">
-        <div className="container mx-auto px-4">
+      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading title="Academic Journey" subtitle="Key milestones in my career path" />
 
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-xl">
             <Timeline events={careerTimeline} />
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-white dark:bg-gray-800">
-        <div className="container mx-auto px-4">
+      <section className="py-20 bg-white dark:bg-gray-800">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading title="Testimonials" subtitle="What colleagues and students say about my work" />
 
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto p-6 bg-gray-50 dark:bg-gray-900 rounded-lg shadow-xl">
             <TestimonialCarousel testimonials={testimonials} />
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-background dark:bg-gray-900">
-        <div className="container mx-auto px-4">
+      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading title="Latest Insights" subtitle="Recent thoughts and articles from my academic blog" />
 
           <BlogPreview posts={blogPosts} />
         </div>
       </section>
 
-      <section className="py-16 bg-white dark:bg-gray-800">
-        <div className="container mx-auto px-4">
+      <section className="py-20 bg-white dark:bg-gray-800">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <NewsCarousel news={news} />
             <NewsletterForm />
@@ -300,7 +300,7 @@ export default function HomePage() {
       </section>
 
       {/* Upcoming Events Section */}
-      <section className="py-20 bg-background/50">
+      <section className="py-20 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
@@ -346,7 +346,7 @@ export default function HomePage() {
                   </p>
                 </div>
 
-                <button className="w-full inline-flex items-center justify-center px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+                <button className="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-lg hover:shadow-xl">
                   Register Now
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </button>
@@ -357,7 +357,7 @@ export default function HomePage() {
           <div className="text-center mt-12">
             <Link
               to="/events"
-              className="inline-flex items-center px-6 py-3 rounded-lg border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-colors"
+              className="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-lg hover:shadow-xl"
             >
               View All Events
               <Calendar className="ml-2 h-5 w-5" />
@@ -380,14 +380,14 @@ export default function HomePage() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 to="/contact"
-                className="inline-flex items-center px-6 py-3 rounded-lg bg-background text-foreground hover:bg-background/90 transition-colors"
+                className="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-lg hover:shadow-xl"
               >
                 Contact Us
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <Link
                 to="/research"
-                className="inline-flex items-center px-6 py-3 rounded-lg border border-background/20 hover:bg-background/10 transition-colors"
+                className="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-lg hover:shadow-xl"
               >
                 Explore Research Areas
                 <Users className="ml-2 h-5 w-5" />

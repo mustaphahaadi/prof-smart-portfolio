@@ -261,7 +261,7 @@ export default function PublicationsPage() {
                 href="https://scholar.google.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center px-6 py-3 bg-primary text-white rounded-md hover:bg-opacity-90 transition-colors"
+                className="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-lg hover:shadow-xl"
               >
                 View Google Scholar Profile
               </a>

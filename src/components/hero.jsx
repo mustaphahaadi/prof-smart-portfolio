@@ -40,7 +40,7 @@ const Hero = () => {
                 
                 <a
                   href="/cv.pdf"
-                  className="inline-flex items-center px-6 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-lg hover:shadow-xl"
+                  className="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-lg hover:shadow-xl"
                   download
                 >
                   <Download className="mr-2 h-5 w-5" />
@@ -49,7 +49,7 @@ const Hero = () => {
                 
                 <Link
                   to="/contact"
-                  className="inline-flex items-center px-6 py-3 rounded-lg border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-lg hover:shadow-xl"
+                  className="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-lg hover:shadow-xl"
                 >
                   <Mail className="mr-2 h-5 w-5" />
                   Contact Me

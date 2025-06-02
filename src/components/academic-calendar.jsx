@@ -199,7 +199,7 @@ export function AcademicCalendar({ events }) {
                   href={selectedEvent.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center px-4 py-2 bg-primary text-white text-sm rounded-md hover:bg-opacity-90 transition-colors"
+                  className="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-lg hover:shadow-xl text-sm"
                 >
                   More Details
                 </a>
