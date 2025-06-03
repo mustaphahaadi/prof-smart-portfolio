@@ -9,7 +9,11 @@ import Research from "./pages/research";
 import Publications from "./pages/publications";
 import IRID from "./pages/irid";
 import Error from "./pages/error";
-import Navbar from "./components/navbar";
+import { Navbar } from "./components/navbar";
+import { AboutSection } from "./components/about-section";
+import { SkillsSection } from "./components/skills-section";
+import { ProjectsSection } from "./components/projects-section";
+import { ContactSection } from "./components/contact-section";
 import Footer from "./components/footer";
 import ScrollToTopButton from "./components/scroll-to-top-button";
 
@@ -26,18 +30,24 @@ function App() {
         </a>
         <Navbar />
         <main id="main-content" className="pt-16 pb-8">
-          <div className="container mx-auto px-4">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:id" element={<BlogPost />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/research" element={<Research />} />
-              <Route path="/publications" element={<Publications />} />
-              <Route path="/irid" element={<IRID />} />
-              <Route path="*" element={<Error />} />
-            </Routes>
-          </div>
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Home />
+                <AboutSection />
+                <SkillsSection />
+                <ProjectsSection />
+                <ContactSection />
+              </>
+            } />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/research" element={<Research />} />
+            <Route path="/publications" element={<Publications />} />
+            <Route path="/irid" element={<IRID />} />
+            <Route path="*" element={<Error />} />
+          </Routes>
         </main>
         <Footer />
         <ScrollToTopButton />
