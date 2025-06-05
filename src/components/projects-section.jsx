@@ -3,31 +3,31 @@ import { useState } from 'react';
 
 const projects = [
   {
-    title: "E-commerce Platform",
-    description: "A full-stack e-commerce solution with real-time inventory management",
-    image: "/projects/ecommerce.jpg",
-    tags: ["React", "Node.js", "MongoDB"],
+    title: "AI-Driven Climate Change Analysis",
+    description: "Leading a multi-institutional research project on climate pattern prediction using advanced machine learning models",
+    image: "/projects/climate-research.jpg",
+    tags: ["Machine Learning", "Climate Science", "Data Analysis"],
     link: "#"
   },
   {
-    title: "Task Management App",
-    description: "Collaborative task management with real-time updates",
-    image: "/projects/taskmanager.jpg",
-    tags: ["Vue.js", "Firebase", "Tailwind"],
+    title: "Quantum Computing Applications",
+    description: "Pioneering research on quantum algorithms for optimization problems in computational biology",
+    image: "/projects/quantum-research.jpg",
+    tags: ["Quantum Computing", "Computational Biology", "Algorithm Design"],
     link: "#"
   },
   {
-    title: "AI Chat Assistant",
-    description: "Intelligent chatbot powered by machine learning",
-    image: "/projects/chatbot.jpg",
-    tags: ["Python", "TensorFlow", "React"],
+    title: "Neural Network Architecture",
+    description: "Development of novel neural network architectures for complex pattern recognition in medical imaging",
+    image: "/projects/neural-research.jpg",
+    tags: ["Deep Learning", "Medical Imaging", "Neural Networks"],
     link: "#"
   },
   {
-    title: "Portfolio Website",
-    description: "Modern portfolio website with smooth animations",
-    image: "/projects/portfolio.jpg",
-    tags: ["React", "Framer Motion", "Tailwind"],
+    title: "Sustainable Energy Systems",
+    description: "Research on optimization of renewable energy systems using advanced control algorithms",
+    image: "/projects/energy-research.jpg",
+    tags: ["Energy Systems", "Control Theory", "Optimization"],
     link: "#"
   }
 ];
@@ -36,7 +36,7 @@ export function ProjectsSection() {
   const [hoveredProject, setHoveredProject] = useState(null);
 
   return (
-    <section className="py-20 bg-tertiary">
+    <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -45,9 +45,9 @@ export function ProjectsSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold text-primary mb-4">Featured Projects</h2>
-          <p className="text-primary/80 max-w-2xl mx-auto">
-            A showcase of my recent work and personal projects
+          <h2 className="text-3xl font-bold text-primary mb-4 font-heading">Featured Research Projects</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            A showcase of significant research initiatives and their impact
           </p>
         </motion.div>
 
@@ -59,7 +59,7 @@ export function ProjectsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative rounded-lg overflow-hidden shadow-subtle hover:shadow-hover transition-all"
+              className="group relative rounded-lg overflow-hidden shadow-subtle hover:shadow-hover transition-all bg-card"
               onMouseEnter={() => setHoveredProject(index)}
               onMouseLeave={() => setHoveredProject(null)}
             >
@@ -72,21 +72,21 @@ export function ProjectsSection() {
                 <div className={`absolute inset-0 bg-gradient-to-t from-primary/90 to-transparent transition-opacity duration-300 ${
                   hoveredProject === index ? 'opacity-100' : 'opacity-0'
                 }`}>
-                  <div className="absolute bottom-0 p-6 text-white">
-                    <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                    <p className="text-sm mb-4">{project.description}</p>
+                  <div className="absolute bottom-0 p-6 text-card-foreground">
+                    <h3 className="text-xl font-semibold mb-2 font-heading">{project.title}</h3>
+                    <p className="text-sm mb-4 text-card-foreground/90">{project.description}</p>
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.tags.map(tag => (
-                        <span key={tag} className="px-2 py-1 bg-secondary/20 rounded text-sm">
+                        <span key={tag} className="px-2 py-1 bg-accent/20 rounded text-sm text-accent-foreground">
                           {tag}
                         </span>
                       ))}
                     </div>
                     <a
                       href={project.link}
-                      className="inline-block px-4 py-2 bg-secondary text-white rounded hover:bg-secondary/90 transition-colors"
+                      className="inline-block px-4 py-2 bg-accent text-accent-foreground rounded hover:bg-accent/90 transition-colors"
                     >
-                      View Project
+                      View Research
                     </a>
                   </div>
                 </div>

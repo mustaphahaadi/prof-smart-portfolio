@@ -113,7 +113,7 @@ export default function HomePage() {
       <Hero
         image={profile?.profile_image || "/placeholder.svg?height=400&width=400"}
         name={profile?.name || "Prof. Smart Asomaning Sarpong"}
-        title={profile?.title || "Academic Researcher & IRID Leader"}
+        title={profile?.title || "Academic Researcher & IRID Director"}
         description={
           profile?.bio ||
           "Welcome to my academic portfolio. I am a professor specializing in innovative research methodologies and interdisciplinary studies."

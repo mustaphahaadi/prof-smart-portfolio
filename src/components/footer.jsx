@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Twitter, Linkedin, Github, Send } from 'lucide-react';
+import { Mail, Twitter, Linkedin, Github, Send, Facebook} from 'lucide-react';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -34,7 +34,7 @@ const Footer = () => {
   const socialLinks = [
     { name: 'Twitter', icon: <Twitter className="h-5 w-5" />, href: 'https://twitter.com' },
     { name: 'LinkedIn', icon: <Linkedin className="h-5 w-5" />, href: 'https://linkedin.com' },
-    { name: 'GitHub', icon: <Github className="h-5 w-5" />, href: 'https://github.com' },
+    { name: 'FaceBook', icon: <Facebook className="h-5 w-5" />, href: 'https://facebook.com' },
     { name: 'Email', icon: <Mail className="h-5 w-5" />, href: 'mailto:contact@example.com' },
   ];
 
