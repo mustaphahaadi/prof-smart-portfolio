@@ -179,7 +179,7 @@ export default function HomePage() {
         "How technology is transforming academic leadership and what skills are needed to thrive in this new environment.",
       date: "April 10, 2023",
       author: "Prof. S. A. Sarpong",
-      image: "/placeholder.svg?height=300&width=500",
+      image: "/public-photo.jpg",
       slug: "academic-leadership-digital-age",
     },
   ]

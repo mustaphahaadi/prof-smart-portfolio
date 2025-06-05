@@ -20,7 +20,7 @@ const Hero = () => {
             >
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-foreground mb-6">
                 Prof. Smart Asomaning Sarpong
-                <span className="block text-blue-600 dark:text-blue-400 mt-2">Senior Researcher Fellow & IRID Director</span>
+                <span className="block text-3xl text-blue-600 dark:text-blue-200 mt-2">Senior Researcher Fellow & IRID Director</span>
               </h1>
               
               {/* Static Description */}
@@ -40,7 +40,7 @@ const Hero = () => {
                 
                 <a
                   href="/cv.pdf"
-                  className="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-lg hover:shadow-xl"
+                  className="inline-flex items-center px-6 py-3 rounded-lg bg-white hover:bg-white text-blue-800 border border-blue-800 transition-colors shadow-lg hover:shadow-xl"
                   download
                 >
                   <Download className="mr-2 h-5 w-5" />
@@ -49,7 +49,7 @@ const Hero = () => {
                 
                 <Link
                   to="/contact"
-                  className="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-lg hover:shadow-xl"
+                  className="inline-flex items-center px-6 py-3 rounded-lg bg-white hover:bg-white text-blue-800 border border-blue-800 transition-colors shadow-lg hover:shadow-xl"
                 >
                   <Mail className="mr-2 h-5 w-5" />
                   Contact Me
