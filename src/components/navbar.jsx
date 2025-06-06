@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useState, useEffect, useCallback } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { ThemeToggle } from './theme-toggle';
@@ -10,7 +10,15 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsOpen(false);
+    setActiveDropdown(null);
+  }, [location.pathname]);
+
+  // Handle scroll behavior
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -19,15 +27,37 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (activeDropdown && !event.target.closest('.dropdown-container')) {
+        setActiveDropdown(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [activeDropdown]);
+
+  const handleNavigation = useCallback((path) => {
+    setIsOpen(false);
+    setActiveDropdown(null);
+    navigate(path);
+  }, [navigate]);
+
+  const toggleDropdown = useCallback((name) => {
+    setActiveDropdown(activeDropdown === name ? null : name);
+  }, [activeDropdown]);
+
   const navLinks = [
     { name: 'Home', path: '/' },
     {
       name: 'Research',
       path: '/research',
       dropdown: [
-        { name: 'Current Projects', path: '/research#current' },
+        { name: 'Current Projects', path: '/research' },
         { name: 'Publications', path: '/publications' },
-        { name: 'Research Map', path: '/research#map' },
+        { name: 'Research Map', path: '/research' },
       ],
     },
     {
@@ -35,7 +65,7 @@ const Navbar = () => {
       path: '/blog',
       dropdown: [
         { name: 'Latest Posts', path: '/blog' },
-        { name: 'Categories', path: '/blog#categories' },
+        { name: 'Categories', path: '/blog' },
       ],
     },
     { name: 'Contact', path: '/contact' },
@@ -52,7 +82,14 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <Link to="/" className="flex-shrink-0">
+            <Link 
+              to="/" 
+              className="flex-shrink-0 transition-transform hover:scale-105"
+              onClick={() => {
+                setIsOpen(false);
+                setActiveDropdown(null);
+              }}
+            >
               <img
                 className="h-8 w-auto"
                 src="/logo.svg"
@@ -65,15 +102,24 @@ const Navbar = () => {
           <div className="hidden md:block">
             <div className="ml-10 flex items-center space-x-4">
               {navLinks.map((link) => (
-                <div key={link.name} className="relative group">
+                <div key={link.name} className="relative dropdown-container">
                   {link.dropdown ? (
                     <button
-                      className="flex items-center px-3 py-2 text-sm font-medium text-foreground hover:text-primary transition-colors"
+                      className={`flex items-center px-3 py-2 text-sm font-medium transition-colors ${
+                        location.pathname.startsWith(link.path)
+                          ? 'text-primary'
+                          : 'text-foreground hover:text-primary'
+                      }`}
                       onMouseEnter={() => setActiveDropdown(link.name)}
                       onMouseLeave={() => setActiveDropdown(null)}
+                      onClick={() => toggleDropdown(link.name)}
                     >
                       {link.name}
-                      <ChevronDown className="ml-1 h-4 w-4" />
+                      <ChevronDown 
+                        className={`ml-1 h-4 w-4 transition-transform duration-200 ${
+                          activeDropdown === link.name ? 'rotate-180' : ''
+                        }`} 
+                      />
                     </button>
                   ) : (
                     <Link
@@ -93,17 +139,20 @@ const Navbar = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
+                      transition={{ duration: 0.2 }}
                       className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-background ring-1 ring-black ring-opacity-5"
+                      onMouseEnter={() => setActiveDropdown(link.name)}
+                      onMouseLeave={() => setActiveDropdown(null)}
                     >
                       <div className="py-1">
                         {link.dropdown.map((item) => (
-                          <Link
+                          <button
                             key={item.name}
-                            to={item.path}
-                            className="block px-4 py-2 text-sm text-foreground hover:bg-accent hover:text-primary"
+                            onClick={() => handleNavigation(item.path)}
+                            className="w-full text-left px-4 py-2 text-sm text-foreground hover:bg-accent hover:text-primary transition-colors"
                           >
                             {item.name}
-                          </Link>
+                          </button>
                         ))}
                       </div>
                     </motion.div>
@@ -123,7 +172,8 @@ const Navbar = () => {
             <ThemeToggle />
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-primary focus:outline-none"
+              className="inline-flex items-center justify-center p-2 rounded-md text-foreground hover:text-primary focus:outline-none transition-colors"
+              aria-label="Toggle menu"
             >
               {isOpen ? (
                 <X className="h-6 w-6" />
@@ -142,6 +192,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
             className="md:hidden bg-background border-t"
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
@@ -150,47 +201,47 @@ const Navbar = () => {
                   {link.dropdown ? (
                     <div className="space-y-1">
                       <button
-                        onClick={() =>
-                          setActiveDropdown(
-                            activeDropdown === link.name ? null : link.name
-                          )
-                        }
-                        className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-foreground hover:text-primary"
+                        onClick={() => toggleDropdown(link.name)}
+                        className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-foreground hover:text-primary transition-colors"
                       >
                         {link.name}
                         <ChevronDown
-                          className={`h-4 w-4 transition-transform ${
+                          className={`h-4 w-4 transition-transform duration-200 ${
                             activeDropdown === link.name ? 'rotate-180' : ''
                           }`}
                         />
                       </button>
                       {activeDropdown === link.name && (
-                        <div className="pl-4 space-y-1">
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="pl-4 space-y-1"
+                        >
                           {link.dropdown.map((item) => (
-                            <Link
+                            <button
                               key={item.name}
-                              to={item.path}
-                              className="block px-3 py-2 text-base font-medium text-foreground hover:text-primary"
-                              onClick={() => setIsOpen(false)}
+                              onClick={() => handleNavigation(item.path)}
+                              className="w-full text-left px-3 py-2 text-base font-medium text-foreground hover:text-primary transition-colors"
                             >
                               {item.name}
-                            </Link>
+                            </button>
                           ))}
-                        </div>
+                        </motion.div>
                       )}
                     </div>
                   ) : (
-                    <Link
-                      to={link.path}
-                      className={`block px-3 py-2 text-base font-medium ${
+                    <button
+                      onClick={() => handleNavigation(link.path)}
+                      className={`w-full text-left px-3 py-2 text-base font-medium transition-colors ${
                         location.pathname === link.path
                           ? 'text-primary'
                           : 'text-foreground hover:text-primary'
                       }`}
-                      onClick={() => setIsOpen(false)}
                     >
                       {link.name}
-                    </Link>
+                    </button>
                   )}
                 </div>
               ))}
