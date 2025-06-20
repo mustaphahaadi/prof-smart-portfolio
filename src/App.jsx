@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
+import { useEffect, useState } from 'react'
 import './styles/globals.css'
 import Home from './pages/home'
 import Research from "./pages/research";
@@ -8,12 +9,30 @@ import IRID from "./pages/irid";
 import Contact from "./pages/contact";
 import Blog from "./pages/blog";
 import BlogPost from "./pages/blog-post";
+import Resources from "./pages/resources";
+import News from "./pages/news";
 import Error from "./pages/error";
 import { Navbar } from "./components/navbar";
 import Footer from "./components/footer";
 import { ScrollToTopButton } from "./components/scroll-to-top-button";
 
 function App() {
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  // Global keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Ctrl+K or Cmd+K to open search
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsSearchOpen(true);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return (
     <Router>
       <Helmet>
@@ -28,7 +47,10 @@ function App() {
         <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-0 focus:left-0 focus:z-50 focus:bg-primary focus:text-primary-foreground focus:p-3 focus:border-b focus:border-primary">
           Skip to main content
         </a>
-        <Navbar />
+        <Navbar 
+          isSearchOpen={isSearchOpen} 
+          setIsSearchOpen={setIsSearchOpen} 
+        />
         <main id="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -37,6 +59,8 @@ function App() {
             <Route path="/irid" element={<IRID />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/news" element={<News />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<Error />} />
           </Routes>

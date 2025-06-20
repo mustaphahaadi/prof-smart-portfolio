@@ -1,14 +1,16 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Search } from 'lucide-react';
 import { ThemeToggle } from './theme-toggle';
 import { LanguageSelector } from './language-selector';
+import { GlobalSearch } from './global-search';
 
-export function Navbar() {
+export function Navbar({ isSearchOpen, setIsSearchOpen }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -63,10 +65,29 @@ export function Navbar() {
     {
       name: 'Publications',
       path: '/publications',
+      dropdown: [
+        { name: 'All Publications', path: '/publications' },
+        { name: 'Recent Papers', path: '/publications#recent' },
+        { name: 'By Category', path: '/publications#categories' },
+      ],
     },
     {
       name: 'IRID',
       path: '/irid',
+      dropdown: [
+        { name: 'About IRID', path: '/irid' },
+        { name: 'Research Projects', path: '/irid#projects' },
+        { name: 'Team', path: '/irid#team' },
+      ],
+    },
+    { name: 'Blog', path: '/blog' },
+    {
+      name: 'More',
+      path: '#',
+      dropdown: [
+        { name: 'Resources', path: '/resources' },
+        { name: 'News & Updates', path: '/news' },
+      ],
     },
     { name: 'Contact', path: '/contact' },
   ];
@@ -133,41 +154,62 @@ export function Navbar() {
                     </Link>
                   )}
 
-                  {link.dropdown && activeDropdown === link.name && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute left-0 mt-2 w-48 rounded-lg shadow-lg bg-card ring-1 ring-border/20"
-                      onMouseEnter={() => setActiveDropdown(link.name)}
-                      onMouseLeave={() => setActiveDropdown(null)}
-                    >
-                      <div className="py-1">
-                        {link.dropdown.map((item) => (
-                          <button
-                            key={item.name}
-                            onClick={() => handleNavigation(item.path)}
-                            className="w-full text-left px-4 py-2 text-sm text-foreground hover:bg-accent hover:text-primary transition-colors"
-                          >
-                            {item.name}
-                          </button>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
+                  <AnimatePresence>
+                    {link.dropdown && activeDropdown === link.name && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute left-0 mt-2 w-48 rounded-lg shadow-lg bg-card ring-1 ring-border/20 z-50"
+                        onMouseEnter={() => setActiveDropdown(link.name)}
+                        onMouseLeave={() => setActiveDropdown(null)}
+                      >
+                        <div className="py-1">
+                          {link.dropdown.map((item) => (
+                            <button
+                              key={item.name}
+                              onClick={() => handleNavigation(item.path)}
+                              className="w-full text-left px-4 py-2 text-sm text-foreground hover:bg-accent hover:text-primary transition-colors"
+                            >
+                              {item.name}
+                            </button>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               ))}
             </div>
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 rounded-md text-foreground hover:text-primary hover:bg-accent transition-colors relative group"
+              aria-label="Search"
+              title="Search (Ctrl+K)"
+            >
+              <Search className="h-5 w-5" />
+              <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-card text-foreground text-xs px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                Ctrl+K
+              </span>
+            </button>
             <LanguageSelector />
             <ThemeToggle />
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-4">
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 rounded-md text-foreground hover:text-primary transition-colors"
+              aria-label="Search"
+              title="Search (Ctrl+K)"
+            >
+              <Search className="h-5 w-5" />
+            </button>
             <ThemeToggle />
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -251,6 +293,12 @@ export function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+      
+      {/* Global Search */}
+      <GlobalSearch 
+        isOpen={isSearchOpen} 
+        onClose={() => setIsSearchOpen(false)} 
+      />
     </nav>
   );
 }
