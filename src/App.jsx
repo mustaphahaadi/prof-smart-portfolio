@@ -10,31 +10,35 @@ import Publications from "./pages/publications";
 import IRID from "./pages/irid";
 import Error from "./pages/error";
 import { Navbar } from "./components/navbar";
-// import { AboutSection } from "./components/about-section";
-import { SkillsSection } from "./components/skills-section";
-import { ProjectsSection } from "./components/projects-section";
-import { ContactSection } from "./components/contact-section";
+import { AboutSection } from "../components/about-section";
+import { SkillsSection } from "../components/skills-section";
+import { ProjectsSection } from "../components/projects-section";
+import { ContactSection } from "../components/contact-section";
 import Footer from "./components/footer";
-import ScrollToTopButton from "./components/scroll-to-top-button";
+import { ScrollToTopButton } from "./components/scroll-to-top-button";
 
 function App() {
   return (
     <Router>
       <Helmet>
         <title>Professional Portfolio</title>
-        <meta name="description" content="Professional portfolio website" />
+        <meta name="description" content="Professional portfolio website showcasing projects and skills" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@700;900&display=swap" rel="stylesheet" />
       </Helmet>
       <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
-        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-0 focus:left-0 focus:z-50 focus:bg-white focus:text-blue-600 focus:p-3 focus:border-b focus:border-blue-600">
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-0 focus:left-0 focus:z-50 focus:bg-primary focus:text-primary-foreground focus:p-3 focus:border-b focus:border-primary">
           Skip to main content
         </a>
         <Navbar />
-        <main id="main-content" className="pt-16 pb-8">
+        <main id="main-content" className="pt-16">
           <Routes>
             <Route path="/" element={
               <>
                 <Home />
-                {/* <AboutSection /> */}
+                <AboutSection />
                 <SkillsSection />
                 <ProjectsSection />
                 <ContactSection />
