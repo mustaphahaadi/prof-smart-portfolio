@@ -1,172 +1,269 @@
-import { Helmet } from "react-helmet"
-import SectionHeading from "../components/section-heading"
-import { ContactForm } from "../components/contact-form"
-import { Mail, Phone, MapPin, Clock, Linkedin, Twitter, Book } from "lucide-react"
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
 
-export default function ContactPage() {
-  // Sample data
-  const contactInfo = {
-    email: "professor@university.edu",
-    phone: "+1 (234) 567-890",
-    office: "Department of Research, University Campus, Academic Building, Room 123",
-    officeHours: [
-      { day: "Monday", hours: "10:00 AM - 12:00 PM" },
-      { day: "Wednesday", hours: "2:00 PM - 4:00 PM" },
-      { day: "Friday", hours: "By appointment" },
-    ],
-  }
+export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
 
-  const affiliations = [
-    "American Association for Research Innovation",
-    "International Society for Interdisciplinary Studies",
-    "Academic Leadership Council",
-    "Higher Education Research Consortium",
-    "Global Research Methodology Network",
-  ]
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Simulate form submission
+    setTimeout(() => {
+      console.log(formData);
+      setSubmitStatus('success');
+      setIsSubmitting(false);
+      
+      // Reset form after successful submission
+      setTimeout(() => {
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        setSubmitStatus(null);
+      }, 3000);
+    }, 1500);
+  };
 
-  const socialLinks = [
-    { name: "LinkedIn", url: "https://linkedin.com", icon: Linkedin },
-    { name: "Twitter", url: "https://twitter.com", icon: Twitter },
-    { name: "Google Scholar", url: "https://scholar.google.com", icon: Book },
-    { name: "ResearchGate", url: "https://researchgate.net", icon: Book },
-  ]
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
 
   return (
-    <div className="page-transition">
-      <Helmet>
-        <title>Contact | Prof. Smart Asomaning Sarpong</title>
-        <meta
-          name="description"
-          content="Get in touch with Prof. Smart Asomaning Sarpong. Contact information, office hours, and inquiry form."
-        />
-      </Helmet>
-
-      <section className="py-16 bg-gradient-to-b from-white to-background">
+    <div className="pt-16">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-background to-accent/10 py-20">
         <div className="container mx-auto px-4">
-          <SectionHeading
-            title="Contact"
-            subtitle="Get in touch for research collaborations, speaking engagements, or general inquiries"
-          />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground font-heading mb-6">Contact</h1>
+            <div className="h-1 w-20 bg-primary rounded-full mx-auto mb-6"></div>
+            <p className="text-xl text-muted-foreground">
+              Get in touch for research collaborations, speaking engagements, or consultancy inquiries
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      <section className="py-16 bg-background">
+      {/* Contact Information */}
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <ContactForm />
-
-            <div className="space-y-8">
-              <div className="bg-white rounded-lg shadow-md p-6">
-                <h3 className="text-xl font-heading font-bold text-primary mb-6">Contact Information</h3>
-
-                <div className="space-y-4">
-                  <div className="flex items-start">
-                    <Mail size={20} className="text-primary mr-3 mt-1" />
-                    <div>
-                      <h4 className="font-medium text-primary">Email</h4>
-                      <a
-                        href={`mailto:${contactInfo.email}`}
-                        className="text-gray-700 hover:text-secondary transition-colors"
-                      >
-                        {contactInfo.email}
-                      </a>
-                    </div>
+          <div className="grid md:grid-cols-2 gap-12">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <h2 className="text-3xl font-bold text-foreground mb-4 font-heading">Get in Touch</h2>
+              <div className="h-1 w-20 bg-primary rounded-full mb-6"></div>
+              <p className="text-muted-foreground mb-8">
+                I welcome inquiries about research collaborations, speaking engagements, 
+                consultancy opportunities, or any questions about my work at Kumasi Technical 
+                University and the Institute of Research, Innovation and Development.
+              </p>
+              
+              <div className="space-y-6">
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
+                    <Mail className="h-5 w-5 text-primary" />
                   </div>
-
-                  <div className="flex items-start">
-                    <Phone size={20} className="text-primary mr-3 mt-1" />
-                    <div>
-                      <h4 className="font-medium text-primary">Phone</h4>
-                      <a
-                        href={`tel:${contactInfo.phone}`}
-                        className="text-gray-700 hover:text-secondary transition-colors"
-                      >
-                        {contactInfo.phone}
-                      </a>
-                    </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground mb-1">Email</h3>
+                    <a href="mailto:prof.sarpong@kstu.edu.gh" className="text-muted-foreground hover:text-primary transition-colors">
+                      prof.sarpong@kstu.edu.gh
+                    </a>
                   </div>
-
-                  <div className="flex items-start">
-                    <MapPin size={20} className="text-primary mr-3 mt-1" />
-                    <div>
-                      <h4 className="font-medium text-primary">Office Location</h4>
-                      <p className="text-gray-700">{contactInfo.office}</p>
-                    </div>
+                </div>
+                
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
+                    <Phone className="h-5 w-5 text-primary" />
                   </div>
-
-                  <div className="flex items-start">
-                    <Clock size={20} className="text-primary mr-3 mt-1" />
-                    <div>
-                      <h4 className="font-medium text-primary">Office Hours</h4>
-                      <ul className="text-gray-700">
-                        {contactInfo.officeHours.map((schedule, index) => (
-                          <li key={index} className="flex justify-between">
-                            <span className="font-medium">{schedule.day}:</span>
-                            <span>{schedule.hours}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground mb-1">Phone</h3>
+                    <a href="tel:+233123456789" className="text-muted-foreground hover:text-primary transition-colors">
+                      +233 12 345 6789
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
+                    <MapPin className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground mb-1">Office</h3>
+                    <p className="text-muted-foreground">
+                      Institute of Research, Innovation and Development<br />
+                      Kumasi Technical University<br />
+                      Kumasi, Ghana
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
+                    <Clock className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground mb-1">Office Hours</h3>
+                    <p className="text-muted-foreground">
+                      Monday - Friday: 9:00 AM - 4:00 PM<br />
+                      Appointments preferred
+                    </p>
                   </div>
                 </div>
               </div>
-
-              <div className="bg-white rounded-lg shadow-md p-6">
-                <h3 className="text-xl font-heading font-bold text-primary mb-4">Professional Affiliations</h3>
-                <ul className="space-y-2">
-                  {affiliations.map((affiliation, index) => (
-                    <li key={index} className="flex items-center">
-                      <div className="w-2 h-2 bg-secondary rounded-full mr-2"></div>
-                      <span className="text-gray-700">{affiliation}</span>
-                    </li>
-                  ))}
-                </ul>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="bg-card rounded-xl p-8 shadow-card ring-1 ring-border/20">
+                <h3 className="text-xl font-semibold text-foreground mb-6">Send a Message</h3>
+                
+                {submitStatus === 'success' ? (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 p-4 rounded-lg flex items-center gap-3"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Your message has been sent successfully!</span>
+                  </motion.div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    <div className="grid md:grid-cols-2 gap-5">
+                      <div>
+                        <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
+                          Name
+                        </label>
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+                          Email
+                        </label>
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors"
+                          required
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-2">
+                        Subject
+                      </label>
+                      <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
+                        Message
+                      </label>
+                      <textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        rows="5"
+                        className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors"
+                        required
+                      ></textarea>
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Sending...
+                        </>
+                      ) : (
+                        <>
+                          <Send className="h-4 w-4" />
+                          Send Message
+                        </>
+                      )}
+                    </button>
+                  </form>
+                )}
               </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
-              <div className="bg-white rounded-lg shadow-md p-6">
-                <h3 className="text-xl font-heading font-bold text-primary mb-4">Connect Online</h3>
-                <div className="flex flex-wrap gap-4">
-                  {socialLinks.map((link, index) => {
-                    const IconComponent = link.icon
+      {/* Map Section */}
+      <section className="py-20 bg-accent/5">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl font-bold text-foreground mb-4 font-heading">Location</h2>
+            <div className="h-1 w-20 bg-primary rounded-full mx-auto mb-6"></div>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Visit the Institute of Research, Innovation and Development at Kumasi Technical University
+            </p>
+          </motion.div>
 
-                    return (
-                      <a
-                        key={index}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center px-4 py-2 bg-primary bg-opacity-5 rounded-md hover:bg-primary hover:text-white transition-colors"
-                      >
-                        <IconComponent size={16} className="mr-2" />
-                        <span>{link.name}</span>
-                      </a>
-                    )
-                  })}
-                </div>
+          <div className="bg-card rounded-xl overflow-hidden shadow-card ring-1 ring-border/20">
+            <div className="aspect-[16/9] bg-accent/20">
+              {/* This would be replaced with an actual map component */}
+              <div className="w-full h-full flex items-center justify-center">
+                <p className="text-muted-foreground">Interactive Map</p>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="bg-primary bg-opacity-5 rounded-lg p-8 text-center">
-            <h3 className="text-xl font-heading font-bold text-primary mb-4">Research Collaboration Inquiry</h3>
-            <p className="max-w-3xl mx-auto mb-6 text-gray-700">
-              Interested in collaborating on a research project? Please use the contact form above and mention "Research
-              Collaboration" in the subject line. I'm always open to discussing new research opportunities and
-              partnerships.
-            </p>
-            <a
-              href="/research"
-              className="inline-flex items-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-lg hover:shadow-xl"
-            >
-              View My Research Areas
-            </a>
-          </div>
-        </div>
-      </section>
     </div>
-  )
+  );
 }

@@ -2,18 +2,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import './styles/globals.css'
 import Home from './pages/home'
-import Blog from './pages/blog'
-import BlogPost from './pages/blog-post'
-import Contact from "./pages/contact";
 import Research from "./pages/research";
 import Publications from "./pages/publications";
 import IRID from "./pages/irid";
+import Contact from "./pages/contact";
 import Error from "./pages/error";
 import { Navbar } from "./components/navbar";
-import { AboutSection } from "./components/about-section";
-import { SkillsSection } from "./components/skills-section";
-import { ProjectsSection } from "./components/projects-section";
-import { ContactSection } from "./components/contact-section";
 import Footer from "./components/footer";
 import { ScrollToTopButton } from "./components/scroll-to-top-button";
 
@@ -21,8 +15,8 @@ function App() {
   return (
     <Router>
       <Helmet>
-        <title>Professional Portfolio</title>
-        <meta name="description" content="Professional portfolio website showcasing projects and skills" />
+        <title>Prof. S. A. Sarpong | Kumasi Technical University</title>
+        <meta name="description" content="Official portfolio of Prof. S. A. Sarpong, Senior Research Fellow and Director of IRID at Kumasi Technical University" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -33,23 +27,13 @@ function App() {
           Skip to main content
         </a>
         <Navbar />
-        <main id="main-content" className="pt-16">
+        <main id="main-content">
           <Routes>
-            <Route path="/" element={
-              <>
-                <Home />
-                <AboutSection />
-                <SkillsSection />
-                <ProjectsSection />
-                <ContactSection />
-              </>
-            } />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:id" element={<BlogPost />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/" element={<Home />} />
             <Route path="/research" element={<Research />} />
             <Route path="/publications" element={<Publications />} />
             <Route path="/irid" element={<IRID />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<Error />} />
           </Routes>
         </main>

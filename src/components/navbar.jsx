@@ -5,7 +5,7 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 import { ThemeToggle } from './theme-toggle';
 import { LanguageSelector } from './language-selector';
 
-const Navbar = () => {
+export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -55,18 +55,18 @@ const Navbar = () => {
       name: 'Research',
       path: '/research',
       dropdown: [
-        { name: 'Current Projects', path: '/research' },
-        { name: 'Publications', path: '/publications' },
-        { name: 'Research Map', path: '/research' },
+        { name: 'Research Areas', path: '/research#areas' },
+        { name: 'Projects', path: '/research#projects' },
+        { name: 'Research Map', path: '/research#map' },
       ],
     },
     {
-      name: 'Blog',
-      path: '/blog',
-      dropdown: [
-        { name: 'Latest Posts', path: '/blog' },
-        { name: 'Categories', path: '/blog' },
-      ],
+      name: 'Publications',
+      path: '/publications',
+    },
+    {
+      name: 'IRID',
+      path: '/irid',
     },
     { name: 'Contact', path: '/contact' },
   ];
@@ -75,26 +75,25 @@ const Navbar = () => {
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-background/80 backdrop-blur-md shadow-lg'
+          ? 'bg-background/90 backdrop-blur-md shadow-md border-b border-border/40'
           : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link 
               to="/" 
-              className="flex-shrink-0 transition-transform hover:scale-105"
+              className="flex-shrink-0 transition-transform hover:scale-105 relative group"
               onClick={() => {
                 setIsOpen(false);
                 setActiveDropdown(null);
               }}
             >
-              <img
-                className="h-8 w-auto"
-                src="/logo.svg"
-                alt="Logo"
-              />
+              <span className="text-primary font-semibold text-xl transition-colors group-hover:text-primary/80 font-heading">
+                Prof. S. A. Sarpong
+              </span>
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
             </Link>
           </div>
 
@@ -140,7 +139,7 @@ const Navbar = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-background ring-1 ring-black ring-opacity-5"
+                      className="absolute left-0 mt-2 w-48 rounded-lg shadow-lg bg-card ring-1 ring-border/20"
                       onMouseEnter={() => setActiveDropdown(link.name)}
                       onMouseLeave={() => setActiveDropdown(null)}
                     >
@@ -193,7 +192,7 @@ const Navbar = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden bg-background border-t"
+            className="md:hidden bg-background border-t border-border/20"
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navLinks.map((link) => (
@@ -254,6 +253,4 @@ const Navbar = () => {
       </AnimatePresence>
     </nav>
   );
-};
-
-export { Navbar };
+}

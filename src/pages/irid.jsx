@@ -1,253 +1,299 @@
-import { Helmet } from "react-helmet"
-import SectionHeading from "../components/section-heading"
-import { TeamStructure } from "../components/team-structure"
-import { Award, Target, TrendingUp, Users } from "lucide-react"
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Users, BookOpen, Lightbulb, Globe } from 'lucide-react';
 
-export default function IridPage() {
-  // Sample data
-  const teamStructure = {
-    leader: {
-      name: "Prof. Smart Asomaning Sarpong",
-      role: "IRID Director",
-    },
-    departments: [
-      {
-        name: "Research Innovation",
-        description: "Developing new research methodologies",
-        members: [
-          { name: "Dr. Jane Smith", role: "Senior Researcher" },
-          { name: "Dr. Michael Johnson", role: "Research Coordinator" },
-          { name: "Sarah Williams", role: "Research Assistant" },
-        ],
-      },
-      {
-        name: "Interdisciplinary Studies",
-        description: "Coordinating cross-disciplinary research",
-        members: [
-          { name: "Dr. Robert Chen", role: "Department Head" },
-          { name: "Dr. Lisa Thompson", role: "Senior Researcher" },
-          { name: "James Wilson", role: "Research Assistant" },
-        ],
-      },
-      {
-        name: "Development & Outreach",
-        description: "Managing partnerships and funding",
-        members: [
-          { name: "Dr. Emily Davis", role: "Outreach Coordinator" },
-          { name: "Thomas Brown", role: "Development Officer" },
-          { name: "Maria Rodriguez", role: "Community Liaison" },
-        ],
-      },
-    ],
-  }
-
-  const initiatives = [
-    {
-      title: "Research Methodology Innovation Hub",
-      description: "A center dedicated to developing and testing new research methodologies across disciplines.",
-      achievements: [
-        "Developed 3 new mixed-methods research frameworks",
-        "Trained over 200 researchers in innovative methodologies",
-        "Published a comprehensive handbook on research innovation",
-      ],
-      icon: Award,
-    },
-    {
-      title: "Cross-Disciplinary Collaboration Network",
-      description:
-        "A network connecting researchers from different disciplines to foster innovative collaborative projects.",
-      achievements: [
-        "Established partnerships with 15 academic departments",
-        "Facilitated 12 cross-disciplinary research projects",
-        "Organized 8 interdisciplinary research symposiums",
-      ],
-      icon: Users,
-    },
-    {
-      title: "Research Capacity Building Program",
-      description: "A program designed to enhance research capabilities in developing academic institutions.",
-      achievements: [
-        "Partnered with 10 developing institutions",
-        "Provided mentorship to 45 early-career researchers",
-        "Secured $2.5M in funding for capacity building initiatives",
-      ],
-      icon: TrendingUp,
-    },
-  ]
-
-  const visionPoints = [
-    {
-      title: "Methodological Innovation",
-      description: "Pioneering new approaches to research that transcend traditional methodological boundaries.",
-    },
-    {
-      title: "Interdisciplinary Excellence",
-      description:
-        "Fostering a culture of collaboration across academic disciplines to address complex research questions.",
-    },
-    {
-      title: "Global Research Impact",
-      description:
-        "Expanding the reach and influence of research through international partnerships and knowledge dissemination.",
-    },
-    {
-      title: "Inclusive Research Practices",
-      description: "Promoting diversity and inclusion in research methodologies, teams, and outcomes.",
-    },
-  ]
-
+export default function IRID() {
   return (
-    <div className="page-transition">
-      <Helmet>
-        <title>IRID Leadership | Prof. Smart Asomaning Sarpong</title>
-        <meta
-          name="description"
-          content="Learn about Prof. Smart Asomaning Sarpong's leadership role at the Institute for Research Innovation and Development (IRID)."
-        />
-      </Helmet>
-
-      <section className="py-16 bg-gradient-to-b from-white to-background">
+    <div className="pt-16">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-background to-accent/10 py-20">
         <div className="container mx-auto px-4">
-          <SectionHeading
-            title="IRID Leadership"
-            subtitle="My role and vision as Director of the Institute for Research Innovation and Development"
-          />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground font-heading mb-6">
+              Institute of Research, Innovation and Development
+            </h1>
+            <div className="h-1 w-20 bg-primary rounded-full mx-auto mb-6"></div>
+            <p className="text-xl text-muted-foreground">
+              Driving research excellence and innovation at Kumasi Technical University
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      <section className="py-16 bg-background">
+      {/* About IRID */}
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="bg-white rounded-lg shadow-md p-8 mb-12">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h2 className="text-2xl md:text-3xl font-heading font-bold text-primary mb-4">
-                  Role & Responsibilities
-                </h2>
-                <p className="text-gray-700 mb-4">
-                  As the Director of the Institute for Research Innovation and Development (IRID), I lead a dynamic team
-                  dedicated to advancing research methodologies and fostering interdisciplinary collaboration in
-                  academic settings.
-                </p>
-                <p className="text-gray-700 mb-4">
-                  My responsibilities include strategic planning, overseeing research initiatives, securing funding,
-                  building partnerships, and mentoring researchers at various career stages.
-                </p>
-                <p className="text-gray-700">
-                  Under my leadership, IRID has become a hub for methodological innovation and cross-disciplinary
-                  research, with a growing network of collaborators across institutions and countries.
-                </p>
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <h2 className="text-3xl font-bold text-foreground mb-4 font-heading">About IRID</h2>
+              <div className="h-1 w-20 bg-primary rounded-full mb-6"></div>
+              <p className="text-muted-foreground mb-6">
+                The Institute of Research, Innovation and Development (IRID) at Kumasi Technical University 
+                is a center of excellence dedicated to fostering research, innovation, and development 
+                initiatives that address local and global challenges.
+              </p>
+              <p className="text-muted-foreground mb-6">
+                As the Director of IRID, I lead a team of dedicated researchers and innovators working 
+                across multiple disciplines to create sustainable solutions and advance knowledge in 
+                technical education, sustainable development, and innovation management.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Link 
+                  to="/contact" 
+                  className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2"
+                >
+                  <span>Collaborate with Us</span>
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
               </div>
-              <div className="flex justify-center">
-                <img
-                  src="/placeholder.svg?height=400&width=400"
-                  alt="Prof. Sarpong at IRID"
-                  className="rounded-lg shadow-lg max-w-full h-auto"
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="relative"
+            >
+              <div className="aspect-video rounded-2xl overflow-hidden shadow-card-hover ring-1 ring-border/20">
+                <img 
+                  src="/public-photo.jpg" 
+                  alt="IRID Building" 
+                  className="w-full h-full object-cover"
                 />
               </div>
-            </div>
-          </div>
-
-          <TeamStructure team={teamStructure} />
-        </div>
-      </section>
-
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-heading font-bold text-primary mb-8 text-center">
-            Key Initiatives & Achievements
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {initiatives.map((initiative, index) => {
-              const IconComponent = initiative.icon
-
-              return (
-                <div key={index} className="bg-primary bg-opacity-5 rounded-lg p-6 hover-effect">
-                  <div className="flex items-center mb-4">
-                    <div className="bg-primary p-3 rounded-full mr-3">
-                      <IconComponent size={24} className="text-white" />
-                    </div>
-                    <h3 className="text-xl font-heading font-bold text-primary">{initiative.title}</h3>
-                  </div>
-
-                  <p className="text-gray-700 mb-4">{initiative.description}</p>
-
-                  <h4 className="font-medium text-primary mb-2">Key Achievements:</h4>
-                  <ul className="space-y-1">
-                    {initiative.achievements.map((achievement, achievementIndex) => (
-                      <li key={achievementIndex} className="flex items-start">
-                        <div className="w-2 h-2 bg-secondary rounded-full mt-2 mr-2"></div>
-                        <span className="text-gray-700">{achievement}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )
-            })}
+              
+              {/* Decorative elements */}
+              <div className="absolute -bottom-6 -right-6 w-28 h-28 bg-primary/10 rounded-2xl -z-10"></div>
+              <div className="absolute -top-6 -left-6 w-20 h-20 bg-secondary/10 rounded-2xl -z-10"></div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-background">
+      {/* Mission & Vision */}
+      <section className="py-20 bg-accent/5">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl md:text-3xl font-heading font-bold text-primary mb-8 text-center">
-            Strategic Vision
-          </h2>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl font-bold text-foreground mb-4 font-heading">Mission & Vision</h2>
+            <div className="h-1 w-20 bg-primary rounded-full mx-auto mb-6"></div>
+          </motion.div>
 
-          <div className="bg-white rounded-lg shadow-md p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-              <div className="flex justify-center">
-                <div className="bg-primary bg-opacity-10 p-4 rounded-full">
-                  <Target size={80} className="text-primary" />
-                </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="bg-card rounded-xl p-8 shadow-card hover:shadow-card-hover transition-all duration-300 ring-1 ring-border/20"
+            >
+              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                <Lightbulb className="h-6 w-6 text-primary" />
               </div>
-              <div>
-                <h3 className="text-xl font-heading font-bold text-primary mb-4">Vision Statement</h3>
-                <p className="text-gray-700 italic border-l-4 border-secondary pl-4 py-2">
-                  "To transform academic research through methodological innovation, interdisciplinary collaboration,
-                  and inclusive practices, creating a global community of researchers equipped to address the complex
-                  challenges of our time."
-                </p>
+              <h3 className="text-2xl font-semibold text-foreground mb-4">Our Mission</h3>
+              <p className="text-muted-foreground">
+                To advance knowledge through innovative research, foster technological development, 
+                and provide solutions to societal challenges through collaborative partnerships 
+                and interdisciplinary approaches.
+              </p>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="bg-card rounded-xl p-8 shadow-card hover:shadow-card-hover transition-all duration-300 ring-1 ring-border/20"
+            >
+              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
+                <Globe className="h-6 w-6 text-primary" />
               </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {visionPoints.map((point, index) => (
-                <div key={index} className="border border-gray-200 rounded-lg p-4">
-                  <h4 className="font-heading font-bold text-primary mb-2">{point.title}</h4>
-                  <p className="text-gray-700">{point.description}</p>
-                </div>
-              ))}
-            </div>
+              <h3 className="text-2xl font-semibold text-foreground mb-4">Our Vision</h3>
+              <p className="text-muted-foreground">
+                To be a leading research and innovation institute in Africa, recognized globally 
+                for excellence in applied research, technological innovation, and sustainable 
+                development solutions.
+              </p>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-white">
+      {/* Research Focus Areas */}
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="bg-primary text-white rounded-lg p-8 text-center">
-            <h2 className="text-2xl md:text-3xl font-heading font-bold mb-4">Join Our Research Community</h2>
-            <p className="max-w-3xl mx-auto mb-6">
-              IRID is always looking for passionate researchers, collaborators, and partners who share our vision for
-              innovative and impactful research.
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl font-bold text-foreground mb-4 font-heading">Research Focus Areas</h2>
+            <div className="h-1 w-20 bg-primary rounded-full mx-auto mb-6"></div>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              IRID conducts research across several key areas that align with national 
+              development priorities and global challenges
             </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <a
-                href="/contact"
-                className="px-6 py-3 bg-white text-primary rounded-md hover:bg-opacity-90 transition-colors"
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Sustainable Energy",
+                description: "Research on renewable energy technologies, energy efficiency, and sustainable energy policies for Ghana and Africa.",
+                icon: (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                )
+              },
+              {
+                title: "Technical Education",
+                description: "Developing innovative approaches to technical education, curriculum development, and technology integration in teaching and learning.",
+                icon: (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                    <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                  </svg>
+                )
+              },
+              {
+                title: "Innovation & Entrepreneurship",
+                description: "Fostering innovation ecosystems, entrepreneurship development, and technology transfer in Ghanaian universities and industries.",
+                icon: (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                  </svg>
+                )
+              },
+              {
+                title: "Sustainable Manufacturing",
+                description: "Developing sustainable manufacturing practices, resource efficiency, and cleaner production technologies for Ghanaian industries.",
+                icon: (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                  </svg>
+                )
+              },
+              {
+                title: "Digital Transformation",
+                description: "Research on digital technologies, ICT adoption, and digital transformation strategies for businesses and educational institutions.",
+                icon: (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                )
+              },
+              {
+                title: "Policy Research",
+                description: "Analyzing and developing policy frameworks for higher education, technology adoption, and sustainable development in Ghana.",
+                icon: (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
+                  </svg>
+                )
+              }
+            ].map((area, index) => (
+              <motion.div
+                key={area.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-card rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 ring-1 ring-border/20"
               >
-                Contact for Opportunities
-              </a>
-              <a
-                href="/research"
-                className="px-6 py-3 bg-transparent border border-white text-white rounded-md hover:bg-white hover:bg-opacity-10 transition-colors"
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                  <div className="text-primary">{area.icon}</div>
+                </div>
+                <h3 className="text-xl font-semibold text-foreground mb-3">{area.title}</h3>
+                <p className="text-muted-foreground">{area.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Key Achievements */}
+      <section className="py-20 bg-accent/5">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl font-bold text-foreground mb-4 font-heading">Key Achievements</h2>
+            <div className="h-1 w-20 bg-primary rounded-full mx-auto mb-6"></div>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              {
+                title: "Research Output",
+                icon: <BookOpen className="h-6 w-6" />,
+                stats: [
+                  { value: "50+", label: "Research Publications" },
+                  { value: "15+", label: "Funded Projects" },
+                  { value: "$2M+", label: "Research Grants" }
+                ]
+              },
+              {
+                title: "Partnerships & Collaborations",
+                icon: <Users className="h-6 w-6" />,
+                stats: [
+                  { value: "20+", label: "International Partners" },
+                  { value: "15+", label: "Industry Collaborations" },
+                  { value: "10+", label: "Government Partnerships" }
+                ]
+              }
+            ].map((section, index) => (
+              <motion.div
+                key={section.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-card rounded-xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 ring-1 ring-border/20"
               >
-                Explore Our Research
-              </a>
-            </div>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <div className="text-primary">{section.icon}</div>
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground">{section.title}</h3>
+                </div>
+                
+                <div className="grid grid-cols-3 gap-4">
+                  {section.stats.map(stat => (
+                    <div key={stat.label} className="text-center">
+                      <p className="text-2xl font-bold text-primary">{stat.value}</p>
+                      <p className="text-sm text-muted-foreground">{stat.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
     </div>
-  )
+  );
 }
