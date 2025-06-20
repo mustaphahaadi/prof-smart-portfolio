@@ -10,10 +10,10 @@ import Publications from "./pages/publications";
 import IRID from "./pages/irid";
 import Error from "./pages/error";
 import { Navbar } from "./components/navbar";
-import { AboutSection } from "../components/about-section";
-import { SkillsSection } from "../components/skills-section";
-import { ProjectsSection } from "../components/projects-section";
-import { ContactSection } from "../components/contact-section";
+import { AboutSection } from "./components/about-section";
+import { SkillsSection } from "./components/skills-section";
+import { ProjectsSection } from "./components/projects-section";
+import { ContactSection } from "./components/contact-section";
 import Footer from "./components/footer";
 import { ScrollToTopButton } from "./components/scroll-to-top-button";
 
