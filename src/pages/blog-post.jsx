@@ -1,204 +1,292 @@
-import { Helmet } from "react-helmet-async"
+import { motion } from 'framer-motion';
+import { useParams, Link } from 'react-router-dom';
+import { Calendar, User, Tag, Share2, ArrowLeft, ArrowRight } from 'lucide-react';
 
-import { useParams, Link } from "react-router-dom"
-import { ArrowLeft, Calendar, User, Tag, Share2, Bookmark, MessageSquare } from "lucide-react"
-import ResearchCard from "../components/research-card"
-
-export default function BlogPostPage() {
-  const { slug } = useParams()
-
-  // In a real app, you would fetch the post data based on the slug
-  // This is sample data for demonstration
+export default function BlogPost() {
+  const { id } = useParams();
+  
+  // This would typically come from an API or CMS
   const post = {
-    title: "The Future of Mixed Methods Research in Academic Settings",
-    date: "June 15, 2023",
-    author: "Prof. Smart Asomaning Sarpong",
-    category: "Research Methodology",
-    tags: ["Mixed Methods", "Research Trends", "Academic Research"],
-    image: "/placeholder.svg?height=600&width=1200",
+    id: parseInt(id),
+    title: "Sustainable Energy Solutions for Rural Communities in Ghana",
     content: `
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <p>Energy access remains a significant challenge for many rural communities in Ghana. Despite the country's progress in electrification, many remote areas still lack reliable and affordable energy sources. This blog post explores practical renewable energy solutions that can transform these communities and address energy poverty challenges.</p>
       
-      <h2>The Evolution of Mixed Methods</h2>
+      <h2>The Current Energy Landscape</h2>
+      <p>Ghana has made significant strides in expanding electricity access, with the national electrification rate reaching approximately 85%. However, this statistic masks substantial disparities between urban and rural areas. While urban electrification rates exceed 90%, rural areas lag behind at around 65%, with some remote communities having no access to the national grid.</p>
       
-      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-      
-      <blockquote>
-        The integration of qualitative and quantitative approaches provides a more comprehensive understanding of research problems than either approach alone.
-      </blockquote>
-      
-      <h2>Current Challenges and Opportunities</h2>
-      
-      <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-      
+      <p>The challenges facing rural energy access include:</p>
       <ul>
-        <li>Integration of diverse data types</li>
-        <li>Methodological rigor across approaches</li>
-        <li>Training researchers in multiple methodologies</li>
-        <li>Publishing challenges in traditional journals</li>
+        <li>Geographical isolation making grid extension prohibitively expensive</li>
+        <li>Low population density and limited ability to pay for energy services</li>
+        <li>Lack of technical expertise for maintaining energy systems</li>
+        <li>Inadequate policy frameworks to support decentralized energy solutions</li>
       </ul>
       
-      <h2>Future Directions</h2>
+      <h2>Promising Renewable Energy Solutions</h2>
       
-      <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+      <h3>1. Solar Home Systems</h3>
+      <p>Solar home systems (SHS) represent one of the most viable solutions for off-grid rural communities. These systems typically consist of a solar panel, battery storage, charge controller, and basic appliances like LED lights and mobile phone chargers. Our research at Kumasi Technical University has demonstrated that even small 50-100W systems can significantly improve quality of life by:</p>
+      <ul>
+        <li>Extending productive hours beyond sunset</li>
+        <li>Enabling children to study in the evenings</li>
+        <li>Facilitating mobile phone charging (essential for mobile banking and communication)</li>
+        <li>Powering small appliances like radios and fans</li>
+      </ul>
       
-      <p>Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p>
+      <p>Pay-as-you-go (PAYG) financing models have made these systems more accessible to low-income households by eliminating the high upfront costs that previously limited adoption.</p>
+      
+      <h3>2. Mini-grids and Micro-grids</h3>
+      <p>For larger rural communities, mini-grid systems offer a middle ground between individual solar home systems and national grid extension. These systems typically combine solar PV with battery storage and sometimes diesel backup generators to provide reliable electricity to a community of households and businesses.</p>
+      
+      <p>Our pilot projects in the Northern Region of Ghana have shown that solar mini-grids can:</p>
+      <ul>
+        <li>Power productive uses of energy (grain milling, irrigation pumping, cold storage)</li>
+        <li>Support community services like health centers and schools</li>
+        <li>Create local employment opportunities in system maintenance and fee collection</li>
+        <li>Stimulate local economic development</li>
+      </ul>
+      
+      <h3>3. Improved Biomass Technologies</h3>
+      <p>While electrification is important, cooking energy remains predominantly biomass-based in rural Ghana. Improved cookstoves and sustainable biomass management are critical components of a comprehensive rural energy strategy. Our research has focused on:</p>
+      <ul>
+        <li>Developing and testing culturally appropriate improved cookstove designs</li>
+        <li>Establishing sustainable woodlot management practices</li>
+        <li>Exploring biogas potential from agricultural waste</li>
+        <li>Promoting efficient charcoal production techniques</li>
+      </ul>
+      
+      <h2>Implementation Challenges and Solutions</h2>
+      
+      <p>Successfully implementing these technologies requires addressing several challenges:</p>
+      
+      <h3>Financing</h3>
+      <p>Renewable energy systems have high upfront costs but low operating costs. Innovative financing mechanisms are essential, including:</p>
+      <ul>
+        <li>Results-based financing to incentivize private sector participation</li>
+        <li>Community-based financing models that pool resources</li>
+        <li>Targeted subsidies for the poorest households</li>
+        <li>Integration with existing microfinance institutions</li>
+      </ul>
+      
+      <h3>Technical Capacity</h3>
+      <p>Building local technical capacity is crucial for sustainability. Our approach includes:</p>
+      <ul>
+        <li>Training local technicians in system installation and maintenance</li>
+        <li>Establishing spare parts supply chains</li>
+        <li>Developing simple user manuals in local languages</li>
+        <li>Creating regional technical support hubs</li>
+      </ul>
+      
+      <h3>Policy Environment</h3>
+      <p>Supportive policies are needed to scale up renewable energy adoption in rural areas:</p>
+      <ul>
+        <li>Simplified licensing procedures for mini-grid developers</li>
+        <li>Clear interconnection rules when the national grid reaches mini-grid areas</li>
+        <li>Quality standards for solar products to prevent market spoilage</li>
+        <li>Targeted incentives for renewable energy in underserved areas</li>
+      </ul>
+      
+      <h2>The Way Forward</h2>
+      
+      <p>Our research at Kumasi Technical University suggests a multi-tiered approach to rural energy access:</p>
+      
+      <ol>
+        <li>Conduct detailed energy needs assessments at the community level</li>
+        <li>Match appropriate technologies to specific community contexts</li>
+        <li>Engage communities in planning and implementation from the outset</li>
+        <li>Build local capacity for operation and maintenance</li>
+        <li>Establish monitoring systems to track impacts and address issues</li>
+      </ol>
+      
+      <p>By taking this approach, we can develop sustainable energy solutions that truly meet the needs of rural communities in Ghana and contribute to broader development goals.</p>
+      
+      <h2>Conclusion</h2>
+      
+      <p>Renewable energy technologies offer promising solutions for addressing energy poverty in rural Ghana. By combining appropriate technologies, innovative financing mechanisms, local capacity building, and supportive policies, we can create sustainable energy systems that improve lives and livelihoods in rural communities.</p>
+      
+      <p>Our ongoing research at the Institute of Research, Innovation and Development (IRID) at Kumasi Technical University continues to explore these solutions and their implementation in various contexts across Ghana.</p>
     `,
+    date: "October 15, 2023",
+    author: "Prof. S. A. Sarpong",
+    category: "sustainability",
+    image: "/blog/sustainable-energy.jpg",
+    tags: ["Renewable Energy", "Rural Development", "Sustainability"],
     relatedPosts: [
       {
-        title: "Building Effective Interdisciplinary Research Teams",
-        slug: "building-interdisciplinary-teams",
-        image: "/placeholder.svg?height=200&width=300",
+        id: 5,
+        title: "Sustainable Manufacturing Practices for Ghanaian Industries",
+        excerpt: "Examining how Ghanaian manufacturing companies can adopt sustainable practices to reduce environmental impact while remaining competitive.",
+        image: "/blog/sustainable-manufacturing.jpg"
       },
       {
-        title: "Academic Leadership in the Digital Age",
-        slug: "academic-leadership-digital-age",
-        image: "/placeholder.svg?height=200&width=300",
-      },
-    ],
-  }
+        id: 3,
+        title: "Building Innovation Ecosystems in Ghanaian Universities",
+        excerpt: "Analyzing the key components needed to foster innovation and entrepreneurship in Ghanaian higher education institutions.",
+        image: "/blog/innovation-ecosystem.jpg"
+      }
+    ]
+  };
 
   return (
-    <div className="page-transition">
-      <Helmet>
-        <title>{post.title} | Prof. Smart Asomaning Sarpong</title>
-        <meta name="description" content={post.content.substring(0, 160).replace(/<[^>]*>/g, "")} />
-      </Helmet>
-
-      <article className="bg-white dark:bg-gray-800">
-        {/* Hero image */}
-        <div className="w-full h-[400px] relative">
-          <img src={post.image || "/placeholder.svg"} alt={post.title} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
-            <div className="container mx-auto px-4 pb-12">
-              <Link
-                to="/blog"
-                className="inline-flex items-center text-white bg-primary/80 hover:bg-primary px-4 py-2 rounded-md mb-4 transition-colors"
-              >
-                <ArrowLeft size={16} className="mr-2" />
-                Back to Blog
-              </Link>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-white mb-4">{post.title}</h1>
-
-              <div className="flex flex-wrap items-center text-white/90 gap-4">
-                <div className="flex items-center">
-                  <Calendar size={16} className="mr-2" />
-                  <span>{post.date}</span>
-                </div>
-
-                <div className="flex items-center">
-                  <User size={16} className="mr-2" />
-                  <span>{post.author}</span>
-                </div>
-
-                <div className="flex items-center">
-                  <Tag size={16} className="mr-2" />
-                  <span>{post.category}</span>
-                </div>
+    <div className="pt-16">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-background to-accent/10 py-20">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <Link 
+              to="/blog" 
+              className="inline-flex items-center text-primary hover:text-primary/80 transition-colors mb-6"
+            >
+              <ArrowLeft className="mr-1 h-4 w-4" />
+              <span>Back to Blog</span>
+            </Link>
+            
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground font-heading mb-6">
+              {post.title}
+            </h1>
+            
+            <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
+              <div className="flex items-center gap-1">
+                <Calendar className="h-4 w-4" />
+                <span>{post.date}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <User className="h-4 w-4" />
+                <span>{post.author}</span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
+      </section>
 
-        {/* Content */}
-        <div className="container mx-auto px-4 py-12">
+      {/* Blog Content */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <div className="flex justify-between items-center mb-8 pb-8 border-b border-gray-200 dark:border-gray-700">
-              <div className="flex space-x-4">
-                {post.tags.map((tag, index) => (
-                  <span
-                    key={index}
-                    className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full text-sm"
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              {/* Featured Image */}
+              <div className="mb-10 rounded-xl overflow-hidden shadow-card">
+                <img 
+                  src={post.image || "/placeholder.jpg"} 
+                  alt={post.title} 
+                  className="w-full h-auto"
+                />
+              </div>
+              
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2 mb-8">
+                {post.tags.map(tag => (
+                  <div 
+                    key={tag} 
+                    className="flex items-center gap-1 px-3 py-1 bg-accent/30 text-foreground rounded-full text-xs"
                   >
-                    {tag}
-                  </span>
+                    <Tag className="h-3 w-3" />
+                    <span>{tag}</span>
+                  </div>
                 ))}
               </div>
-
-              <div className="flex space-x-2">
-                <button
-                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                  aria-label="Share"
-                >
-                  <Share2 size={20} className="text-gray-600 dark:text-gray-400" />
-                </button>
-                <button
-                  className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                  aria-label="Bookmark"
-                >
-                  <Bookmark size={20} className="text-gray-600 dark:text-gray-400" />
-                </button>
-              </div>
-            </div>
-
-            <div
-              className="prose prose-lg max-w-none dark:prose-invert prose-headings:font-heading prose-headings:text-primary dark:prose-headings:text-white prose-a:text-secondary dark:prose-a:text-blue-300 prose-blockquote:border-secondary dark:prose-blockquote:border-blue-500 prose-blockquote:bg-gray-50 dark:prose-blockquote:bg-gray-700/50 prose-blockquote:py-2 prose-blockquote:px-4 prose-blockquote:rounded-md"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
-
-            <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <img
-                    src="/placeholder.svg?height=60&width=60"
-                    alt={post.author}
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
-                  <div>
-                    <h3 className="font-medium text-primary dark:text-white">{post.author}</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                      Director, Institute for Research Innovation and Development
-                    </p>
+              
+              {/* Content */}
+              <div 
+                className="prose prose-lg dark:prose-invert max-w-none mb-10"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              />
+              
+              {/* Share */}
+              <div className="border-t border-border/20 pt-6 mt-10">
+                <div className="flex items-center justify-between">
+                  <div className="text-sm text-muted-foreground">
+                    Share this article:
+                  </div>
+                  <div className="flex gap-2">
+                    {['twitter', 'facebook', 'linkedin', 'email'].map(platform => (
+                      <button
+                        key={platform}
+                        className="w-8 h-8 rounded-full bg-accent/30 flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                        aria-label={`Share on ${platform}`}
+                      >
+                        <Share2 className="h-4 w-4" />
+                      </button>
+                    ))}
                   </div>
                 </div>
-
-                <button className="flex items-center px-4 py-2 bg-primary text-white dark:bg-blue-600 rounded-md hover:bg-opacity-90 transition-colors">
-                  <MessageSquare size={16} className="mr-2" />
-                  Contact Author
-                </button>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
-      </article>
+      </section>
 
-      {/* Related posts */}
-      <section className="py-12 bg-background dark:bg-gray-900">
+      {/* Related Posts */}
+      <section className="py-20 bg-accent/5">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-heading font-bold text-primary dark:text-white mb-8 text-center">
-            Related Articles
-          </h2>
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl font-bold text-foreground mb-4 font-heading">Related Posts</h2>
+            <div className="h-1 w-20 bg-primary rounded-full mx-auto mb-6"></div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {post.relatedPosts.map((relatedPost, index) => (
-              <Link
-                key={index}
-                to={`/blog/${relatedPost.slug}`}
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover-effect group"
+              <motion.div
+                key={relatedPost.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-card rounded-xl overflow-hidden shadow-card hover:shadow-card-hover transition-all duration-300 ring-1 ring-border/20"
               >
-                <div className="flex flex-col md:flex-row h-full">
-                  <div className="md:w-1/3 h-48 md:h-auto overflow-hidden">
+                <Link to={`/blog/${relatedPost.id}`}>
+                  <div className="aspect-[16/9] overflow-hidden">
                     <img
-                      src={relatedPost.image || "/placeholder.svg"}
+                      src={relatedPost.image || "/placeholder.jpg"}
                       alt={relatedPost.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                     />
                   </div>
-
-                  <div className="md:w-2/3 p-6 flex flex-col justify-center">
-                    <h3 className="text-lg font-heading font-bold text-primary dark:text-white mb-2 group-hover:text-secondary dark:group-hover:text-blue-300 transition-colors">
+                </Link>
+                
+                <div className="p-6">
+                  <h3 className="text-xl font-semibold text-foreground mb-3 font-heading">
+                    <Link 
+                      to={`/blog/${relatedPost.id}`}
+                      className="hover:text-primary transition-colors"
+                    >
                       {relatedPost.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Read article</p>
-                  </div>
+                    </Link>
+                  </h3>
+                  
+                  <p className="text-muted-foreground mb-4">
+                    {relatedPost.excerpt}
+                  </p>
+                  
+                  <Link 
+                    to={`/blog/${relatedPost.id}`}
+                    className="inline-flex items-center text-primary hover:text-primary/80 transition-colors"
+                  >
+                    <span>Read More</span>
+                    <ArrowRight className="ml-1 h-4 w-4" />
+                  </Link>
                 </div>
-              </Link>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
     </div>
-  )
+  );
 }

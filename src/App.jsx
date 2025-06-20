@@ -6,6 +6,8 @@ import Research from "./pages/research";
 import Publications from "./pages/publications";
 import IRID from "./pages/irid";
 import Contact from "./pages/contact";
+import Blog from "./pages/blog";
+import BlogPost from "./pages/blog-post";
 import Error from "./pages/error";
 import { Navbar } from "./components/navbar";
 import Footer from "./components/footer";
@@ -33,6 +35,8 @@ function App() {
             <Route path="/research" element={<Research />} />
             <Route path="/publications" element={<Publications />} />
             <Route path="/irid" element={<IRID />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<Error />} />
           </Routes>
