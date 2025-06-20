@@ -1,0 +1,514 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+		"name": "Professor Portfolio API",
+		"description": "API endpoints for Professor S. A. Sarpong's portfolio website",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "General Endpoints",
+			"item": [
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/profile/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								""
+							]
+						},
+						"description": "Get professor's profile information"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Research Areas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/research-areas/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"research-areas",
+								""
+							]
+						},
+						"description": "Get all research areas"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Research Projects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/research-projects/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"research-projects",
+								""
+							]
+						},
+						"description": "Get all research projects"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Ongoing Research Projects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/research-projects/ongoing/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"research-projects",
+								"ongoing",
+								""
+							]
+						},
+						"description": "Get ongoing research projects"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Publications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/publications/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"publications",
+								""
+							]
+						},
+						"description": "Get all publications"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Most Cited Publications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/publications/most-cited/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"publications",
+								"most-cited",
+								""
+							]
+						},
+						"description": "Get most cited publications"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Blog Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/blog-categories/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"blog-categories",
+								""
+							]
+						},
+						"description": "Get all blog categories"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Blog Posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/blog-posts/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"blog-posts",
+								""
+							]
+						},
+						"description": "Get all blog posts"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Featured Blog Posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/blog-posts/featured/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"blog-posts",
+								"featured",
+								""
+							]
+						},
+						"description": "Get featured blog posts"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/events/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"events",
+								""
+							]
+						},
+						"description": "Get all events"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Upcoming Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/events/upcoming/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"upcoming",
+								""
+							]
+						},
+						"description": "Get upcoming events"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "IRID Endpoints",
+			"item": [
+				{
+					"name": "Get IRID Info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/irid/info/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"irid",
+								"info",
+								""
+							]
+						},
+						"description": "Get IRID institute information"
+					},
+					"response": []
+				},
+				{
+					"name": "Get IRID Team",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/irid/team/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"irid",
+								"team",
+								""
+							]
+						},
+						"description": "Get IRID team members"
+					},
+					"response": []
+				},
+				{
+					"name": "Get IRID Projects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/irid/projects/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"irid",
+								"projects",
+								""
+							]
+						},
+						"description": "Get IRID projects"
+					},
+					"response": []
+				},
+				{
+					"name": "Get IRID Partners",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/irid/partners/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"irid",
+								"partners",
+								""
+							]
+						},
+						"description": "Get IRID partners"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Citation Metrics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/irid/citation-metrics/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"irid",
+								"citation-metrics",
+								""
+							]
+						},
+						"description": "Get citation metrics"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Form Submissions",
+			"item": [
+				{
+					"name": "Submit Contact Form",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"subject\": \"Research Inquiry\",\n    \"message\": \"I would like to discuss your research on sustainable energy solutions.\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/contact/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"contact",
+								""
+							]
+						},
+						"description": "Submit contact form"
+					},
+					"response": []
+				},
+				{
+					"name": "Subscribe to Newsletter",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/subscribe/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"subscribe",
+								""
+							]
+						},
+						"description": "Subscribe to newsletter"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Statistics",
+			"item": [
+				{
+					"name": "Get Research Summary",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/research-summary/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"research-summary",
+								""
+							]
+						},
+						"description": "Get research statistics summary"
+					},
+					"response": []
+				},
+				{
+					"name": "Get IRID Summary",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/irid-summary/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"irid-summary",
+								""
+							]
+						},
+						"description": "Get IRID statistics summary"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Dashboard Stats",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{authToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/dashboard-stats/",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"dashboard-stats",
+								""
+							]
+						},
+						"description": "Get admin dashboard statistics (requires authentication)"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "authToken",
+			"value": "your-auth-token-here",
+			"type": "string"
+		}
+	]
+}
