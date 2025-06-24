@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet"
 import { motion } from "framer-motion"
+import { useState, useEffect } from 'react'
 import Hero from "../components/hero"
 import SectionHeading from "../components/section-heading"
 import AchievementCard from "../components/achievement-card"
@@ -11,9 +12,40 @@ import Timeline from "../components/timeline"
 import BlogPreview from "../components/blog-preview"
 import { ArrowRight, Calendar, Users, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import ApiService from '../services/api';
 
 export default function HomePage() {
-  // Sample data
+  const [profile, setProfile] = useState(null);
+  const [researchAreas, setResearchAreas] = useState([]);
+  const [featuredBlogPosts, setFeaturedBlogPosts] = useState([]);
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [profileData, areasData, blogData, eventsData] = await Promise.all([
+          ApiService.getProfile(),
+          ApiService.getResearchAreas(),
+          ApiService.getFeaturedBlogPosts(),
+          ApiService.getUpcomingEvents()
+        ]);
+        
+        setProfile(profileData.results?.[0] || null);
+        setResearchAreas(areasData.results?.slice(0, 3) || []);
+        setFeaturedBlogPosts(blogData.results?.slice(0, 3) || []);
+        setUpcomingEvents(eventsData.results?.slice(0, 3) || []);
+      } catch (error) {
+        console.error('Error fetching home page data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Sample data for sections not yet connected to API
   const achievements = [
     {
       date: "June 2023",
@@ -32,24 +64,6 @@ export default function HomePage() {
       title: "Research Grant Approval",
       description: "Secured a $1.2M research grant for the study of innovative research methodologies.",
       icon: "award",
-    },
-  ]
-
-  const researchHighlights = [
-    {
-      title: "Innovative Research Methodologies",
-      description: "Developing new approaches to academic research that combine quantitative and qualitative methods.",
-      image: "/placeholder.svg?height=300&width=500",
-    },
-    {
-      title: "Interdisciplinary Studies",
-      description: "Exploring the intersection of multiple academic disciplines to solve complex research problems.",
-      image: "/placeholder.svg?height=300&width=500",
-    },
-    {
-      title: "Academic Leadership Development",
-      description: "Researching effective strategies for developing leadership skills in academic environments.",
-      image: "/placeholder.svg?height=300&width=500",
     },
   ]
 
@@ -154,56 +168,13 @@ export default function HomePage() {
     },
   ]
 
-  const blogPosts = [
-    {
-      title: "The Future of Mixed Methods Research in Academic Settings",
-      excerpt:
-        "Exploring how mixed methods research is evolving and what this means for academic researchers across disciplines.",
-      date: "June 15, 2023",
-      author: "Prof. S. A. Sarpong",
-      image: "/placeholder.svg?height=300&width=500",
-      slug: "future-mixed-methods-research",
-    },
-    {
-      title: "Building Effective Interdisciplinary Research Teams",
-      excerpt:
-        "Key strategies for creating and managing successful research teams that span multiple academic disciplines.",
-      date: "May 22, 2023",
-      author: "Prof. S. A. Sarpong",
-      image: "/placeholder.svg?height=300&width=500",
-      slug: "building-interdisciplinary-teams",
-    },
-    {
-      title: "Academic Leadership in the Digital Age",
-      excerpt:
-        "How technology is transforming academic leadership and what skills are needed to thrive in this new environment.",
-      date: "April 10, 2023",
-      author: "Prof. S. A. Sarpong",
-      image: "/public-photo.jpg",
-      slug: "academic-leadership-digital-age",
-    },
-  ]
-
-  const upcomingEvents = [
-    {
-      title: 'International Conference on Sustainable Development',
-      date: '2024-06-15',
-      location: 'Virtual',
-      type: 'Conference',
-    },
-    {
-      title: 'Research Workshop on Innovation Management',
-      date: '2024-07-20',
-      location: 'University Campus',
-      type: 'Workshop',
-    },
-    {
-      title: 'Guest Lecture: Technology Adoption',
-      date: '2024-08-05',
-      location: 'Online',
-      type: 'Lecture',
-    },
-  ];
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background dark:bg-gray-950">
@@ -216,10 +187,10 @@ export default function HomePage() {
       </Helmet>
 
       <Hero
-        image="/profile-photo.jpg"
-        name="Prof. Smart Asomaning Sarpong"
-        title="Senior Researcher Fellow & IRID Director"
-        description="Welcome to my academic portfolio. I am a professor specializing in innovative research methodologies and interdisciplinary studies, with a focus on developing new approaches to academic research."
+        image={profile?.profile_image || "/profile-photo.jpg"}
+        name={profile?.name || "Prof. Smart Asomaning Sarpong"}
+        title={profile?.title || "Senior Researcher Fellow & IRID Director"}
+        description={profile?.bio || "Welcome to my academic portfolio. I am a professor specializing in innovative research methodologies and interdisciplinary studies, with a focus on developing new approaches to academic research."}
         ctaLink="/research"
         ctaText="Explore My Research"
       />
@@ -250,12 +221,12 @@ export default function HomePage() {
           <SectionHeading title="Featured Research" subtitle="Highlights from my current research focus areas" />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {researchHighlights.map((research, index) => (
+            {researchAreas.map((research, index) => (
               <ResearchCard
-                key={index}
+                key={research.id}
                 title={research.title}
                 description={research.description}
-                image={research.image}
+                image={research.image || "/placeholder.svg?height=300&width=500"}
               />
             ))}
           </div>
@@ -286,7 +257,7 @@ export default function HomePage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading title="Latest Insights" subtitle="Recent thoughts and articles from my academic blog" />
 
-          <BlogPreview posts={blogPosts} />
+          <BlogPreview posts={featuredBlogPosts} />
         </div>
       </section>
 
@@ -315,7 +286,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {upcomingEvents.map((event, index) => (
               <motion.div
-                key={event.title}
+                key={event.id || event.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -342,7 +313,7 @@ export default function HomePage() {
                     <span className="font-medium">Location:</span> {event.location}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    <span className="font-medium">Type:</span> {event.type}
+                    <span className="font-medium">Type:</span> {event.type_display || event.type}
                   </p>
                 </div>
 

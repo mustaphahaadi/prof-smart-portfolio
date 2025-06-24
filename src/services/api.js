@@ -1,135 +1,138 @@
-import axios from 'axios';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
 
-const API_BASE_URL = 'http://localhost:8000/api';
+class ApiService {
+  async request(endpoint, options = {}) {
+    const url = `${API_BASE_URL}${endpoint}`;
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        ...options.headers,
+      },
+      ...options,
+    };
 
-// Profile API
-export const fetchProfile = async () => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/profile/`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching profile:', error);
-    throw error;
+    try {
+      const response = await fetch(url, config);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('API request failed:', error);
+      throw error;
+    }
   }
-};
 
-// Achievements API
-export const fetchAchievements = async () => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/achievements/`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching achievements:', error);
-    throw error;
+  // Profile
+  async getProfile() {
+    return this.request('/profile/');
   }
-};
 
-// Research Areas API
-export const fetchResearchAreas = async () => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/research-areas/`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching research areas:', error);
-    throw error;
+  // Research Areas
+  async getResearchAreas() {
+    return this.request('/research-areas/');
   }
-};
 
-// News API
-export const fetchNews = async () => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/news/`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching news:', error);
-    throw error;
+  async getResearchArea(id) {
+    return this.request(`/research-areas/${id}/`);
   }
-};
 
-// Testimonials API
-export const fetchTestimonials = async () => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/testimonials/`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching testimonials:', error);
-    throw error;
+  // Research Projects
+  async getResearchProjects(params = {}) {
+    const query = new URLSearchParams(params).toString();
+    return this.request(`/research-projects/${query ? `?${query}` : ''}`);
   }
-};
 
-// Career Events API
-export const fetchCareerEvents = async () => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/career-events/`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching career events:', error);
-    throw error;
+  async getOngoingProjects() {
+    return this.request('/research-projects/ongoing/');
   }
-};
 
-// Blog Posts API
-export const fetchBlogPosts = async () => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/blog-posts/`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching blog posts:', error);
-    throw error;
+  async getCompletedProjects() {
+    return this.request('/research-projects/completed/');
   }
-};
 
-// Research Projects API
-export const fetchResearchProjects = async () => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/research-projects/`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching research projects:', error);
-    throw error;
+  // Publications
+  async getPublications(params = {}) {
+    const query = new URLSearchParams(params).toString();
+    return this.request(`/publications/${query ? `?${query}` : ''}`);
   }
-};
 
-// Publications API
-export const fetchPublications = async () => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/publications/`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching publications:', error);
-    throw error;
+  async getMostCitedPublications() {
+    return this.request('/publications/most-cited/');
   }
-};
 
-// Team Members API
-export const fetchTeamMembers = async () => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/team-members/`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching team members:', error);
-    throw error;
+  async getPublicationsByYear() {
+    return this.request('/publications/by-year/');
   }
-};
 
-// Contact Form API
-export const submitContactForm = async (formData) => {
-  try {
-    const response = await axios.post(`${API_BASE_URL}/contact/`, formData);
-    return response.data;
-  } catch (error) {
-    console.error('Error submitting contact form:', error);
-    throw error;
+  // Blog
+  async getBlogCategories() {
+    return this.request('/blog-categories/');
   }
-};
 
-// Newsletter Subscription API
-export const subscribeToNewsletter = async (email) => {
-  try {
-    const response = await axios.post(`${API_BASE_URL}/newsletter-subscribe/`, { email });
-    return response.data;
-  } catch (error) {
-    console.error('Error subscribing to newsletter:', error);
-    throw error;
+  async getBlogPosts(params = {}) {
+    const query = new URLSearchParams(params).toString();
+    return this.request(`/blog-posts/${query ? `?${query}` : ''}`);
   }
-};
+
+  async getBlogPost(slug) {
+    return this.request(`/blog-posts/${slug}/`);
+  }
+
+  async getFeaturedBlogPosts() {
+    return this.request('/blog-posts/featured/');
+  }
+
+  // Events
+  async getEvents(params = {}) {
+    const query = new URLSearchParams(params).toString();
+    return this.request(`/events/${query ? `?${query}` : ''}`);
+  }
+
+  async getUpcomingEvents() {
+    return this.request('/events/upcoming/');
+  }
+
+  // IRID
+  async getIRIDInfo() {
+    return this.request('/irid/info/');
+  }
+
+  async getIRIDTeam() {
+    return this.request('/irid/team/');
+  }
+
+  async getIRIDProjects() {
+    return this.request('/irid/projects/');
+  }
+
+  async getIRIDPartners() {
+    return this.request('/irid/partners/');
+  }
+
+  // Statistics
+  async getResearchSummary() {
+    return this.request('/research-summary/');
+  }
+
+  async getIRIDSummary() {
+    return this.request('/irid-summary/');
+  }
+
+  // Form submissions
+  async submitContact(data) {
+    return this.request('/contact/', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
+  async subscribeNewsletter(email) {
+    return this.request('/subscribe/', {
+      method: 'POST',
+      body: JSON.stringify({ email }),
+    });
+  }
+}
+
+export default new ApiService();

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
+import ApiService from '../services/api';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -12,22 +13,25 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      console.log(formData);
+    try {
+      await ApiService.submitContact(formData);
       setSubmitStatus('success');
-      setIsSubmitting(false);
       
       // Reset form after successful submission
       setTimeout(() => {
         setFormData({ name: '', email: '', subject: '', message: '' });
         setSubmitStatus(null);
       }, 3000);
-    }, 1500);
+    } catch (error) {
+      console.error('Error submitting contact form:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -148,6 +152,17 @@ export default function Contact() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                     </svg>
                     <span>Your message has been sent successfully!</span>
+                  </motion.div>
+                ) : submitStatus === 'error' ? (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300 p-4 rounded-lg flex items-center gap-3"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    <span>There was an error sending your message. Please try again.</span>
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
